@@ -1,0 +1,5 @@
+<nav class="conference-entry-bar" data-conference-entry aria-label="参会服务" data-entry-event="{{ event.id }}">
+ {% if participation_entry.member_url %}<a class="conference-entry-button conference-entry-enroll" data-conference-enroll data-guest-url="{{ participation_entry.guest_url }}" data-member-url="{{ participation_entry.member_url }}" href="{{ participation_entry.member_url if session.user else participation_entry.guest_url }}"><span data-zh="报名参会" data-en="Register for conference">报名参会</span></a>{% else %}<span class="conference-entry-button conference-entry-unavailable" aria-disabled="true" data-zh="{{ participation_entry.state_zh }}" data-en="{{ participation_entry.state_en }}">{{ participation_entry.state_zh }}</span>{% endif %}
+ <a class="conference-entry-button" data-conference-login href="{{ account.login_url }}"{% if session.user %} hidden{% endif %}><span data-zh="登录" data-en="Log in">登录</span></a>
+ <a class="conference-entry-button" data-conference-member href="/participation/"{% if not session.user %} hidden{% endif %}><span data-zh="我的参会" data-en="My participation">我的参会</span></a>
+</nav>

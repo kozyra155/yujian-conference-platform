@@ -1,0 +1,32 @@
+import os
+from urllib.parse import quote_plus
+from runpy import run_path
+
+SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@{}/{}'.format(
+    quote_plus(os.environ['PGUSER']), quote_plus(os.environ['PGPASSWORD']),
+    os.environ['PGHOST'], quote_plus(os.environ['PGDATABASE']))
+SECRET_KEY = 'REPLACE_WITH_A_LONG_RANDOM_SECRET_BEFORE_STARTING'
+BASE_URL = 'http://192.168.2.36:12880'
+USE_PROXY = True
+DEFAULT_TIMEZONE = 'Asia/Shanghai'
+DEFAULT_LOCALE = 'zh_Hans_CN'
+REDIS_CACHE_URL = 'redis://indico-redis:6379/0'
+CELERY_BROKER = 'redis://indico-redis:6379/1'
+CELERY_CONFIG = {'worker_concurrency': 1}
+NO_REPLY_EMAIL = 'no-reply@example.invalid'
+SUPPORT_EMAIL = 'support@example.invalid'
+ENABLE_ROOMBOOKING = False
+LOG_DIR = '/opt/indico/log'
+TEMP_DIR = '/opt/indico/tmp'
+CACHE_DIR = '/opt/indico/cache'
+CUSTOMIZATION_DIR = '/opt/indico/custom'
+STORAGE_BACKENDS = {'default': 'fs:/opt/indico/archive'}
+ATTACHMENT_STORAGE = 'default'
+PLUGINS = {'yujian_site'}
+EMAIL_BACKEND = 'indico.vendor.django_mail.backends.locmem.EmailBackend'
+LOGIN_LOGO_URL = '/portal-assets/meet-logo.png'
+LOGO_URL = '/portal-assets/meet-logo.png'
+FAVICON_URL = '/portal-assets/meet-logo.png'
+
+locals().update(run_path('/opt/indico/etc/smtp_config.py')['get_smtp_config'](
+    '/opt/indico/etc/smtp-settings.json'))

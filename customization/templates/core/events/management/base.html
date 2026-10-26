@@ -1,0 +1,20 @@
+{% extends '~events/management/base.html' %}
+{% from 'yujian_site:workspace-frame.html' import frame with context %}
+
+{% block page %}
+ {% if g.yujian_native_business %}
+  {% set business = g.yujian_native_business %}
+  {% set actions = [dict(url=business.event_url, label_zh='会议网站', label_en='Conference website', primary=true)] %}
+  {% if event.can_manage(session.user) %}{% set actions = [dict(url='/conference/%s/operations/'|format(event.id), label_zh='返回办会管理', label_en='Event operations')] + actions %}{% endif %}
+  <div class="meet-native-business" data-business-mode="management" data-event-id="{{ event.id }}">
+   {% call frame('operations', business.title_zh, business.title_en, event.title, event.title, actions=actions, show_messages=false) %}
+    <nav class="meet-business-tabs" aria-label="Business management">
+     {% if event.has_feature('registration') and business.can_manage_registration %}<a href="{{ url_for('event_registration.manage_regform_list', event) }}" class="{{ 'selected' if business.registration }}" data-zh="报名管理" data-en="Registration">报名管理</a>{% endif %}
+     {% if event.has_feature('abstracts') and business.can_manage_abstracts %}<a href="{{ url_for('abstracts.management', event) }}" class="{{ 'selected' if not business.registration }}" data-zh="投稿与审稿" data-en="Abstracts and reviewing">投稿与审稿</a>{% endif %}
+     <a href="/participation/" data-zh="我的参会" data-en="My participation">我的参会</a>
+    </nav>
+    <div class="meet-business-content">{{ super() }}</div>
+   {% endcall %}
+  </div>
+ {% else %}{{ super() }}{% endif %}
+{% endblock %}

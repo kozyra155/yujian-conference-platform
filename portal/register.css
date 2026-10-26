@@ -1,0 +1,79 @@
+body:has(.meet-register-page){margin:0;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;background:#f3f8fa}
+body:has(.meet-register-page) .wrapper{display:block;min-height:100svh}
+body:has(.meet-register-page)>.header,body:has(.meet-register-page)>.footer{display:none}
+body:has(.meet-register-page)>.main{margin:0;padding:0;width:100%;max-width:none}
+.meet-register-page{min-height:100svh;box-sizing:border-box;background:#f3f8fa url('/portal-assets/meet-background.png') no-repeat right -3px center;background-size:auto 100%;position:relative;isolation:isolate;padding:32px 7vw;color:#244d68}
+.meet-register-page:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f3f8fa 0%,#f3f8fa 38%,#f3f8fad9 54%,#f3f8fa20 78%);z-index:-1}
+.meet-register-page *{box-sizing:border-box}
+.meet-register-inner{width:560px;max-width:100%}
+.meet-register-home{display:inline-block;margin:0 0 20px;color:#557b8e;font-size:13px}
+.meet-register-card{padding:30px 38px;border-radius:8px;border:1px solid #dfeaf0;background:#ffffffed;box-shadow:0 12px 48px #23516e0d}
+.meet-register-brand{display:flex;align-items:center;gap:20px;color:#244d68;width:fit-content;margin:0 auto 22px;text-decoration:none}
+.meet-register-logo{width:86px;height:88px;object-fit:contain}
+.meet-register-brand>span{font-size:25px;letter-spacing:2px;font-weight:500}
+.meet-register-brand small{display:block;letter-spacing:1px;font-size:13px;color:#718994;margin-top:6px}
+.meet-register-card h1{font-size:25px;font-weight:500;color:#244d68;line-height:1.5;text-align:center;margin:0 0 9px}
+.meet-register-intro{text-align:center;font-size:13px;color:#718692;line-height:1.8;margin:0}
+.meet-register-steps{list-style:none;padding:0;margin:25px 0;display:flex;gap:18px;align-items:center;justify-content:center;font-size:13px;color:#8a9ca8}
+.meet-register-steps li{display:flex;align-items:center;gap:8px}
+.meet-register-steps li+li:before{content:"";width:45px;height:1px;background:#dce7ec;margin-right:10px}
+.meet-register-steps span{display:inline-grid;place-items:center;width:25px;height:25px;border:1px solid #d7e2e8;border-radius:50%;font-size:12px;background:#f5f8fa}
+.meet-register-steps .current,.meet-register-steps .complete{color:#1683a0}
+.meet-register-steps .current span{color:white;background:#1687a5;border-color:#1687a5}
+.meet-register-steps .complete span{border-color:#9ac8d3;color:#1683a0}
+.meet-register-notice{background:#eef7fa;border:1px solid #d7eaf0;border-radius:4px;padding:11px 14px;color:#527b8c;font-size:12px;line-height:1.8;margin-bottom:20px}
+.meet-register-help{color:#718692;font-size:13px;line-height:1.9;margin:0 0 21px}
+.meet-register-page .i-form{width:100%;margin:0;padding:0}
+.meet-register-page .i-form .form-group{display:block;padding:0;margin:0 0 20px;max-width:100%}
+.meet-register-page .i-form .form-label,.meet-register-page .i-form .form-field{float:none;display:block;width:100%;margin:0;min-width:0;max-width:100%;padding:0;text-align:left}
+.meet-register-page .i-form .form-label{margin-bottom:9px;font-size:14px;color:#365d74}
+.meet-register-page .i-form .form-label label{margin:0;font-weight:500}
+.meet-register-page input[type=email],.meet-register-page input[type=text],.meet-register-page input[type=password],.meet-register-page .ui.form input,.meet-register-page .ui.form textarea{height:46px;max-width:100%;width:100%;border:1px solid #cddce4;border-radius:4px;padding:11px 13px;font-size:14px;color:#244d68;font-family:inherit;background:#fff;box-sizing:border-box}
+.meet-register-page .ui.form textarea{height:auto;min-height:80px}
+.meet-register-page input:focus-visible,.meet-register-page button:focus-visible,.meet-register-page a:focus-visible{outline:2px solid #1687a4;outline-offset:3px}
+.meet-register-page .ui.info.message{border:1px solid #d7e6ed;box-shadow:none;border-radius:5px;background:#f5fafc;padding:15px;color:#426b80;font-size:12px;max-width:100%;margin:0}
+.meet-register-page .ui.info.message .header{font-size:13px;color:#365d74}
+.meet-register-page .ui.info.message p{line-height:1.7;margin:8px 0 0}
+.meet-register-page [class*="captcha--"]{gap:18px;margin-top:18px;flex-wrap:wrap}
+.meet-register-page [class*="captcha-form--"]{margin-top:18px}
+.meet-register-page .ui.message img{max-width:100%}
+.meet-register-page .ui.form label{font-size:13px!important;color:#365d74!important;font-weight:500!important}
+.meet-register-page .ui.form .field{margin-bottom:18px}
+.meet-register-page .i-form .form-field>input[type=email]{width:100%;height:46px}
+.meet-register-page .i-form .form-group-footer{margin:0;padding:0}
+.meet-register-page .i-form .form-group-footer>.form-label{display:none}
+.meet-register-page .i-form .form-group-footer input[type=submit],.meet-register-page #signup-container .ui.primary.button{background:#1487a5;border:1px solid #1487a5;color:#fff;width:100%;height:46px;border-radius:4px;font-size:15px;font-family:inherit;margin:0;box-shadow:none;line-height:1.4;white-space:normal}
+.meet-register-page .i-form input[type=submit]:hover,.meet-register-page #signup-container .ui.primary.button:hover{background:#116f8b;border-color:#116f8b}
+.meet-register-page .form-field .error-message{font-size:12px}
+.meet-register-page .meet-register-login{text-align:center;font-size:13px;color:#718692;margin:24px 0 0;line-height:1.8}
+.meet-register-page a{color:#177d9e}
+.meet-register-login a{margin-left:6px}
+.meet-register-credit{color:#78909d;text-align:center;margin:22px 0 0;font-size:11px}
+.meet-register-sent{padding:23px 0 10px;text-align:center}
+.meet-register-sent h2{font-size:20px;font-weight:500;margin-bottom:14px;color:#244d68}
+.meet-register-sent p{font-size:13px;line-height:1.9;color:#718692}
+.meet-register-cancel{display:inline-block;margin-top:20px;font-size:13px}
+.meet-register-page #signup-container{margin-top:25px}
+.meet-register-page #signup-container fieldset{min-width:0;width:100%;padding:0;margin:0 0 22px;border:none}
+.meet-register-page #signup-container legend{font-size:16px;color:#365d74;border-bottom:1px solid #e1ebef;margin-bottom:18px;padding:0 0 10px;width:100%}
+.meet-register-page #signup-container .ui.form{font-family:inherit}
+.meet-register-page #signup-container .buttons{display:flex;flex-wrap:wrap;gap:10px}
+.meet-register-page #signup-container form>div:last-child{gap:12px;align-items:center;flex-wrap:wrap}
+.meet-register-page #signup-container form>div:last-child>.field{margin:0}
+@media(min-width:1700px){.meet-register-page{padding-left:13vw;background-size:auto 115%}}
+@media(max-width:900px){.meet-register-page{padding:25px 4vw;background-position:right -150px center}.meet-register-page:before{background:linear-gradient(90deg,#f3f8fa 0%,#f3f8faee 40%,#f3f8fa80 80%)}}
+@media(max-width:600px){.meet-register-page{padding:23px 16px;background-position:center;background-size:cover}.meet-register-page:before{background:#f3f8fac9}.meet-register-inner{margin:auto;width:420px}.meet-register-card{padding:25px 22px}.meet-register-brand{gap:14px;margin-bottom:19px}.meet-register-logo{width:72px;height:74px}.meet-register-brand>span{font-size:23px}.meet-register-card h1{font-size:23px}.meet-register-steps{gap:8px;font-size:12px;margin:23px 0}.meet-register-steps li{gap:6px}.meet-register-steps li+li:before{width:17px;margin-right:5px}.meet-register-page .ui.info.message{padding:13px}.meet-register-page .ui.form .fields{flex-direction:column;gap:10px}.meet-register-page .ui.form .fields>.field{width:100%!important;margin:0;padding:0}.meet-register-page #signup-container .ui.primary.button{height:auto;min-height:46px}}
+@media(prefers-reduced-motion:reduce){.meet-register-page *{animation:none!important;transition:none!important}}
+.meet-register-continue{display:block;margin:22px 0 0;font-size:13px}
+.meet-register-link-recovery{margin-top:20px;text-align:left;font-size:13px;line-height:1.8}
+.meet-register-link-recovery summary{cursor:pointer;color:#177d9e}
+.meet-register-link-recovery label{display:block;margin:12px 0 6px}
+.meet-register-link-recovery input{width:100%;min-width:0;padding:10px;border:1px solid #cddce4;border-radius:4px;font:inherit}
+.meet-register-link-recovery button{margin-top:10px;padding:9px 16px;border:0;border-radius:4px;background:#1487a5;color:#fff;font:inherit;cursor:pointer}
+.meet-register-link-recovery [role=alert]{color:#b33b36}
+html.meet-auth-page #outdated-browser{position:relative!important;top:auto;height:auto;min-height:0;padding:10px 48px 10px 16px;text-transform:none;text-align:left;box-sizing:border-box}
+html.meet-auth-page #outdated-browser .vertical-center{text-align:left}
+html.meet-auth-page #outdated-browser h6{font-size:14px;line-height:1.5;margin:0 0 3px}
+html.meet-auth-page #outdated-browser p{font-size:12px;line-height:1.6}
+html.meet-auth-page #outdated-browser .last{top:8px;right:14px;width:28px;height:28px}
+html.meet-auth-page #outdated-browser #close-outdated-browser{font-size:28px;line-height:28px}

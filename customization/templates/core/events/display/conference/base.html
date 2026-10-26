@@ -1,0 +1,14 @@
+{% extends '~events/display/conference/base.html' %}
+{% from 'yujian_site:workspace-frame.html' import frame with context %}
+
+{% block page %}
+ {% if g.yujian_native_business %}
+  {% set business = g.yujian_native_business %}
+  {% set actions = [dict(url='/participation/', label_zh='返回我的参会', label_en='My participation'), dict(url=business.event_url, label_zh='会议网站', label_en='Conference website', primary=true)] %}
+  <div class="meet-native-business" data-business-mode="participation" data-event-id="{{ event.id }}">
+   {% call frame('participation', business.title_zh, business.title_en, event.title, event.title, actions=actions, show_messages=false) %}
+    <div class="meet-business-content">{{ super() }}</div>
+   {% endcall %}
+  </div>
+ {% else %}{{ super() }}{% endif %}
+{% endblock %}

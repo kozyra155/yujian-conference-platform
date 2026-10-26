@@ -1,0 +1,10 @@
+{% extends '~users/dashboard.html' %}
+{% from 'yujian_site:workspace-frame.html' import frame with context %}
+{% block page %}
+ {% if user == session.user %}
+  {% call frame('records', '日程与参会记录', 'Schedule and participation', '查看关联会议、参会角色与关注目录，将会议安排同步到个人日历。', 'See your related conferences, roles and followed categories, and sync events to your calendar.') %}
+   <div class="meet-records-toolbar"><h2 data-zh="我的会议安排" data-en="My conference schedule">我的会议安排</h2><div id="dashboard-calendar-link"></div></div>
+   <div class="meet-records-content">{{ self.content() }}</div>
+  {% endcall %}
+ {% else %}{{ super() }}{% endif %}
+{% endblock %}

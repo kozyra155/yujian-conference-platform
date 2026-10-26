@@ -1,0 +1,10 @@
+{% if g.conference_auth %}
+ {% set account = g.conference_auth %}
+ <aside class="meet-conference-auth" data-conference-auth="{{ account.event_id }}" data-no-translate>
+  <p data-zh="您正在参与的会议" data-en="Your conference">您正在参与的会议</p>
+  <strong>{{ account.title }}</strong>
+  <a href="{{ account.event_url }}" data-zh="返回会议网站" data-en="Back to conference">返回会议网站</a>
+  <nav aria-label="Account access"><a href="{{ account.login_url }}" class="{{ 'selected' if request.path.startswith('/login/') }}" data-zh="账号登录" data-en="Log in">账号登录</a><a href="{{ account.register_url }}" class="{{ 'selected' if request.path.startswith('/register/') }}" data-zh="创建参会账号" data-en="Create account">创建参会账号</a></nav>
+  <small data-zh="使用邮箱验证创建账号，完成后继续原会议报名或投稿。" data-en="Verify your email to create an account, then continue with your conference.">使用邮箱验证创建账号，完成后继续原会议报名或投稿。</small>
+ </aside>
+{% endif %}

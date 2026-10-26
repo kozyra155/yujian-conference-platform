@@ -1,0 +1,15 @@
+{% extends '~layout/auth_base.html' %}
+{% block head %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/portal-assets/auth-brand.css">
+    <link rel="stylesheet" href="/portal-assets/portal.css">
+    <link rel="stylesheet" href="/portal-assets/conference-accounts.css">
+    <script src="/portal-assets/translations.js" defer></script>
+    <script src="/portal-assets/portal.js" defer></script>
+    <script src="/portal-assets/auth-brand.js" defer></script>
+{% endblock %}
+{% block body %}
+    <div class="auth-language"><button class="language-toggle" type="button" aria-label="Switch to English">EN</button></div>
+    {{ super() }}
+{% endblock %}

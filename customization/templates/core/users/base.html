@@ -1,0 +1,10 @@
+{% extends '~users/base.html' %}
+{% from 'yujian_site:workspace-frame.html' import frame with context %}
+{% block page %}
+ {% if user == session.user %}
+  {% call frame('profile', '个人资料与账号设置', 'Profile and account settings', '完善个人信息，管理邮箱、登录方式与使用偏好。', 'Update your details, email addresses, sign-in methods and preferences.') %}
+   <nav class="meet-profile-tabs" aria-label="Account settings">{{ render_sidemenu('user-profile-sidemenu', active_item=active_menu_item, user=user) }}</nav>
+   <div class="meet-profile-content">{{ self.content() }}</div>
+  {% endcall %}
+ {% else %}{{ super() }}{% endif %}
+{% endblock %}

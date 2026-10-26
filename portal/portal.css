@@ -1,0 +1,29 @@
+.language-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:34px;padding:5px 7px;color:#e2edf3;background:transparent;border:1px solid #b6d0df80;border-radius:3px;font-size:12px;white-space:nowrap;cursor:pointer}
+.language-toggle:hover{background:#ffffff14}
+.account-menu{position:relative;min-width:0}
+.account-toggle{display:flex;align-items:center;gap:7px;list-style:none;border:1px solid #a8c1cf;border-radius:3px;padding:7px 12px;cursor:pointer;max-width:170px;color:#fff;font-size:13px}
+.account-toggle::-webkit-details-marker{display:none}
+.account-toggle .icon{width:14px;height:14px}
+.account-name{max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.account-chevron{font-size:13px;color:#b9d0de}
+.account-dropdown{position:absolute;top:calc(100% + 12px);right:0;width:200px;background:white;border:1px solid #dce7ee;border-radius:5px;box-shadow:0 10px 30px #173b5929;padding:7px;z-index:10;color:#355b72;font-size:13px}
+.account-dropdown>a{display:block;padding:10px 12px;border-radius:3px}
+.account-dropdown>a:hover{background:#eef6f9;color:#1483a3}
+.account-dropdown-name{padding:9px 12px;color:#7b939f;font-size:12px;border-bottom:1px solid #e4edf2;margin:0 0 5px;white-space:normal;overflow-wrap:anywhere}
+.account-dropdown>.account-logout{border-top:1px solid #e4edf2;border-radius:0;margin-top:5px;color:#6a7e89}
+.account-toggle:focus-visible,.language-toggle:focus-visible{outline:3px solid #e5af00;outline-offset:4px}
+.auth-language{position:absolute;top:25px;right:5vw;z-index:5}
+.auth-language .language-toggle,.meet-register-page>.language-toggle{color:#176c8c;border-color:#b4cfdc;background:#ffffffb8}
+.meet-register-page>.language-toggle{position:absolute;top:24px;right:7vw;z-index:1}
+#portal-status{position:fixed;bottom:16px;right:16px;max-width:340px;padding:13px 17px;background:#fff;border:1px solid #d9e5ed;border-radius:4px;color:#52758a;font-size:13px;box-shadow:0 4px 20px #1c48641a;z-index:20}
+html[lang=en] .hero h1{font-size:43px;max-width:720px;line-height:1.4}
+html[lang=en] .hero-content>p:not(.hero-eyebrow){font-size:16px;max-width:570px}
+html[lang=en] .brand strong{font-size:17px}
+html[lang=en] .feature h3{font-size:18px}
+html[lang=en] .feature-main p{font-size:13px}
+html[lang=en] .meet-register-brand>span{font-size:21px;letter-spacing:0}
+@media(max-width:1250px){.header-inner{gap:20px}.header-actions{gap:10px}.main-nav{gap:22px}.account-toggle{max-width:135px;padding:7px 9px}.account-name{max-width:76px}html[lang=en] .brand strong{font-size:15px}}
+@media(max-width:1000px){.header-inner{gap:15px}.main-nav{gap:15px}.account-name{max-width:56px}.account-toggle{max-width:110px;font-size:12px}.header-actions{gap:8px}html[lang=en] .brand strong{font-size:13px}html[lang=en] .hero h1{font-size:35px}}
+@media(max-width:760px){.header-actions .header-create{display:none}.header-actions .login-link{display:inline-flex;width:32px;height:34px;align-items:center;justify-content:center;padding:7px}.header-actions .login-link>span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.account-toggle{width:33px;height:34px;padding:8px;justify-content:center}.account-name,.account-chevron{display:none}.language-toggle{min-width:32px;min-height:34px;padding:5px}.header-actions{gap:8px}.header-inner{gap:9px}.brand strong{font-size:13px}.brand small{font-size:6px}.account-dropdown{right:-43px;width:190px}.auth-language{top:14px;right:20px}html[lang=en] .brand strong{font-size:11px}html[lang=en] .hero h1{font-size:30px;max-width:340px}html[lang=en] .hero-content>p:not(.hero-eyebrow){font-size:14px;max-width:315px}html[lang=en] .hero-eyebrow{letter-spacing:1px;font-size:12px}html[lang=en] .feature h3{font-size:17px}.meet-register-page>.language-toggle{top:18px;right:19px}}
+@media(max-width:360px){.header-actions{gap:6px}.brand strong{font-size:11px}html[lang=en] .brand strong{font-size:9px}.brand small{font-size:5px}html[lang=en] .hero h1{font-size:27px}}
+@media(max-width:760px){.brand{min-width:0;flex-shrink:1}.brand>span{min-width:0}.brand small{max-width:100%;overflow:hidden;white-space:nowrap}.menu-toggle{flex-shrink:0}}

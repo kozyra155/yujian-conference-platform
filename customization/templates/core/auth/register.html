@@ -1,0 +1,8 @@
+{% extends 'auth/meet_register_frame.html' %}
+{% set register_step = 2 %}
+{% block register_heading %}完善账户信息{% endblock %}
+{% block register_intro %}邮箱验证已完成，请设置您的个人资料与登录信息。{% endblock %}
+{% block register_content %}
+    {% include 'flashed_messages.html' %}
+    <div id="signup-container" data-config="{{ signup_config | tojson | forceescape }}"></div>
+{% endblock %}

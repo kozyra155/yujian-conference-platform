@@ -1,0 +1,5 @@
+[
+  {"username": "admin", "name": "平台管理员", "email": "admin@example.invalid", "password": "REPLACE_WITH_A_UNIQUE_STRONG_PASSWORD"},
+  {"username": "host-a", "name": "主办方甲", "email": "host-a@example.invalid", "password": "REPLACE_WITH_ANOTHER_STRONG_PASSWORD"},
+  {"username": "host-b", "name": "主办方乙", "email": "host-b@example.invalid", "password": "REPLACE_WITH_ANOTHER_UNIQUE_STRONG_PASSWORD"}
+]

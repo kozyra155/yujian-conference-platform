@@ -1,0 +1,7 @@
+FROM yujian-indico:3.3.13
+USER root
+RUN sed -i 's/\r$//' /opt/indico/*.sh && chmod 755 /opt/indico/*.sh
+RUN mkdir -p /var/cache/fontconfig && chown -R indico:indico /var/cache/fontconfig
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt/lists \
+    apt-get update && apt-get -y install --no-install-recommends libpangoft2-1.0-0 libharfbuzz-subset0 && apt-get clean
+USER indico

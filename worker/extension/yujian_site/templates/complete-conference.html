@@ -1,0 +1,71 @@
+{% macro bi(zh, en='') -%}<span data-zh="{{ zh or en }}" data-en="{{ en or zh }}">{{ (en or zh) if language == 'en' else (zh or en) }}</span>{%- endmacro %}
+{% macro images(urls, label='') -%}{% if urls %}<div class="complete-image-gallery">{% for url in urls %}<img src="{{ url }}" alt="{{ label }}" loading="lazy">{% endfor %}</div>{% endif %}{%- endmacro %}
+{% macro rich_pair(zh, en='', group='rich') -%}{% if zh or en %}<div class="complete-rich-text" data-no-translate data-complete-language-group="{{ group }}" data-complete-language="zh"{% if language == 'en' and en %} hidden{% endif %}>{{ (zh or en)|sanitize_html }}</div>{% if en %}<div class="complete-rich-text" data-no-translate data-complete-language-group="{{ group }}" data-complete-language="en"{% if language != 'en' %} hidden{% endif %}>{{ en|sanitize_html }}</div>{% endif %}{% endif %}{%- endmacro %}
+{% macro menu(items, path='root') %}
+<ul{% if path == 'root' %} id="complete-menu"{% else %} id="complete-menu-{{ path }}" class="complete-submenu"{% endif %}>
+ {% for item in items %}{% set key = path ~ '-' ~ loop.index %}
+ {% if item.separator %}<li class="complete-menu-separator" role="separator"></li>{% else %}
+ <li class="complete-menu-item{% if item.children %} has-children{% endif %}">
+  <div class="complete-menu-row">{% if item.url %}<a href="{{ item.url }}"{% if item.new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}{% if (page and item.page_id == page.id) or (not page and item.name == 'overview') %} aria-current="page"{% endif %}>{{ item.title }}</a>{% else %}<span>{{ item.title }}</span>{% endif %}
+  {% if item.children %}<button type="button" class="complete-submenu-toggle" aria-expanded="false" aria-controls="complete-menu-{{ key }}" aria-label="{{ item.title }}">⌄</button>{% endif %}</div>
+  {% if item.children %}{{ menu(item.children, key) }}{% endif %}
+ </li>{% endif %}{% endfor %}
+</ul>
+{% endmacro %}
+<!doctype html>
+<html lang="{{ 'en' if language == 'en' else 'zh-CN' }}">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>{{ page.menu_entry.title ~ ' · ' if page else '' }}{{ event.title }}</title>
+ <link rel="icon" href="/portal-assets/meet-logo.png" type="image/png">
+ <link rel="stylesheet" href="/portal-assets/portal.css"><link rel="stylesheet" href="/portal-assets/complete-conference.css"><link rel="stylesheet" href="/portal-assets/appearance-presets.css">
+<link rel="stylesheet" href="/portal-assets/conference-accounts.css"><link rel="stylesheet" href="/portal-assets/feedback-content.css">
+ <script src="/portal-assets/translations.js" defer></script><script src="/portal-assets/portal.js" defer></script><script src="/portal-assets/complete-conference.js" defer></script>
+ <link rel="stylesheet" href="/portal-assets/conference-entry.css">
+</head>
+<body class="complete-site appearance-{{ appearance_layout|default('simple-1') }}" data-conference-title="{{ page.menu_entry.title ~ ' · ' if page else '' }}{{ event.title }}" style="--complete-accent:{{ accent }}">
+<a class="complete-skip" href="#main">{{ bi('跳至主要内容', 'Skip to content') }}</a>
+<div class="complete-shell">
+ {% if can_manage %}<div class="complete-preview"><span>{% if published %}{{ bi('您正在以管理者身份查看会议网站', 'You are viewing this website as an organizer') }}{% else %}<strong>{{ bi('私密草稿，仅本会议管理者可见', 'Private draft, visible only to conference managers') }}</strong>{% endif %}</span><a href="/conference/{{ event.id }}/">{{ bi('返回网站工作台', 'Website workspace') }}</a></div>{% endif %}
+ {% set banner = content.banner %}
+ <header class="complete-banner{% if banner.image or banner.image_en %} has-image{% endif %}">
+ {% if banner.image or banner.image_en %}<img class="complete-banner-image" src="{{ banner.image_en if language == 'en' and banner.image_en else (banner.image or banner.image_en) }}" data-image-zh="{{ banner.image or banner.image_en }}" data-image-en="{{ banner.image_en or banner.image }}" alt="{{ banner.title or event.title }}">{% endif %}
+ {% if banner.show_title %}<div class="complete-banner-title"><h1>{{ bi(banner.title or event.title, banner.title_en) }}</h1>{% if banner.subtitle or banner.subtitle_en %}<p>{{ bi(banner.subtitle, banner.subtitle_en) }}</p>{% endif %}<div class="complete-banner-meta"><time>{{ event.start_dt_local.strftime('%Y.%m.%d') }}</time> — <time>{{ event.end_dt_local.strftime('%Y.%m.%d') }}</time>{% if event.venue_name %}<span data-no-translate>{{ event.venue_name }}</span>{% endif %}</div></div>{% else %}<h1 class="complete-sr-only">{{ bi(banner.title or event.title, banner.title_en) }}</h1>{% endif %}
+ {% include 'yujian_site:conference-entry.html' %}
+ </header>
+ <nav class="complete-navigation" aria-label="Conference navigation">
+  <a class="complete-vertical-brand" href="/event/{{ event.id }}/"><img src="/portal-assets/meet-logo.png" alt="遇见科技" width="42" height="44">{{ bi('会议网站', 'Conference website') }}</a>
+  <button class="complete-mobile-toggle" type="button" aria-controls="complete-menu" aria-expanded="false">☰ {{ bi('会议导航', 'Conference menu') }}</button>
+  {{ menu(navigation) }}
+  <div class="header-actions complete-account"><button type="button" class="language-toggle" aria-label="Switch to English">EN</button><a class="complete-signup" data-guest-signup href="{{ account.register_url }}"{% if session.user %} hidden{% endif %}>{{ bi('注册账户', 'Create account') }}</a><a class="login-link" href="{{ account.login_url }}" data-login-url="{{ account.login_url }}"><span>{{ 'Log in' if language == 'en' else '登录' }}</span></a><details class="account-menu" hidden><summary class="account-toggle" aria-label="账户菜单"><span class="account-name" data-no-translate></span><span class="account-chevron">⌄</span></summary><div class="account-dropdown"><p class="account-dropdown-name" data-no-translate></p><a href="/organizer/">{{ bi('我的会议', 'My conferences') }}</a><a href="/participation/">{{ bi('我的参会', 'My participation') }}</a><a href="/user/profile/">{{ bi('个人资料', 'Profile') }}</a><a href="/logout/?next=/">{{ bi('退出登录', 'Log out') }}</a></div></details></div>
+ </nav>
+ {% if announcement %}<div class="complete-announcement" data-no-translate>{{ announcement }}</div>{% endif %}
+ <div class="complete-body">
+  {% if countdown %}<section class="complete-live-countdown" data-live-countdown data-target="{{ countdown.target }}" data-now="{{ countdown.now }}" role="timer" aria-live="off">
+   <div class="complete-clock-running"{% if countdown.expired %} hidden{% endif %}>
+    <strong>{{ bi('距离会议开始还有：' if countdown.is_conference else '距离目标日期还有：', 'Conference starts in:' if countdown.is_conference else 'Time remaining:') }}</strong>
+    <div class="complete-clock-digits">{% for key, zh, en in [('days', '天', 'days'), ('hours', '时', 'hrs'), ('minutes', '分', 'min'), ('seconds', '秒', 'sec')] %}<span class="complete-clock-unit"><b data-countdown-part="{{ key }}">{{ countdown[key] if key == 'days' else '%02d'|format(countdown[key]) }}</b>{{ bi(zh, en) }}</span>{% endfor %}</div>
+   </div>
+   <strong class="complete-clock-ended"{% if not countdown.expired %} hidden{% endif %}>{{ bi('会议已开始' if countdown.is_conference else '目标日期已到', 'The conference has started' if countdown.is_conference else 'The target date has arrived') }}</strong>
+   <small>{{ bi('北京时间', 'Beijing time') }} <time datetime="{{ countdown.target }}">{{ countdown.target[:10] }} 00:00</time></small>
+  </section>{% endif %}
+  <main id="main" class="complete-main" tabindex="-1">
+  {% if page %}<div class="complete-breadcrumb"><a href="/event/{{ event.id }}/">{{ bi('会议首页', 'Home') }}</a><span>/</span><span>{{ page.menu_entry.title }}</span></div><section class="complete-section"><h2>{{ page.menu_entry.title }}</h2><div class="complete-rich-text" data-no-translate>{{ page.html|sanitize_html }}</div></section>
+  {% else %}{% for section in sections %}
+   {% if section == 'introduction' %}<section class="complete-section" id="introduction"><h2>{{ bi('会议介绍', 'About the conference') }}</h2><div class="complete-rich-text" data-no-translate data-complete-language-group="introduction" data-complete-language="zh"{% if language == 'en' and content.introduction_en %} hidden{% endif %}>{{ event.description|sanitize_html }}</div>{% if content.introduction_en %}<div class="complete-rich-text complete-plain" data-no-translate data-complete-language-group="introduction" data-complete-language="en"{% if language != 'en' %} hidden{% endif %}>{{ content.introduction_en }}</div>{% endif %}{{ images(content.introduction_images, '会议介绍') }}</section>
+   {% elif section == 'speakers' %}<section class="complete-section" id="speakers"><h2>{{ bi('主题嘉宾', 'Featured speakers') }}</h2><div class="complete-speakers">{% for speaker in content.speakers %}<article class="complete-speaker">{% if speaker.image %}<img src="{{ speaker.image }}" alt="{{ speaker.name }}" loading="lazy">{% endif %}<h3>{{ bi(speaker.name, speaker.name_en) }}</h3>{% if speaker.affiliation or speaker.affiliation_en %}<p>{{ bi(speaker.affiliation, speaker.affiliation_en) }}</p>{% endif %}{% if speaker.role or speaker.role_en %}<p class="complete-speaker-role">{{ bi(speaker.role, speaker.role_en) }}</p>{% endif %}{% if speaker.bio or speaker.bio_en %}<p class="complete-plain complete-speaker-bio">{{ bi(speaker.bio, speaker.bio_en) }}</p>{% endif %}{% if speaker.topic or speaker.topic_en %}<p class="complete-speaker-topic">{{ bi(speaker.topic, speaker.topic_en) }}</p>{% endif %}</article>{% endfor %}</div></section>
+   {% elif section == 'news' %}<section class="complete-section" id="news"><h2>{{ bi('会议动态', 'Conference news') }}</h2><div class="complete-news">{% for item in content.news %}<article class="complete-news-item">{% if item.date %}<time class="complete-news-date" datetime="{{ item.date }}"><span>{{ item.date[:7]|replace('-', '.') }}</span><strong>{{ item.date[8:] }}</strong></time>{% endif %}<div><h3>{% if item.url %}<a href="{{ item.url }}">{{ bi(item.title, item.title_en) }}</a>{% else %}{{ bi(item.title, item.title_en) }}{% endif %}</h3>{% if item.body or item.body_en %}<p class="complete-plain">{{ bi(item.body, item.body_en) }}</p>{% endif %}</div></article>{% endfor %}</div></section>
+   {% elif section == 'notices' %}<section class="complete-section" id="notices"><h2>{{ bi('参会须知', 'Participant information') }}</h2><div class="complete-plain">{{ bi(content.notices.text, content.notices.text_en) }}</div></section>
+   {% elif section == 'venue' %}<section class="complete-section" id="venue"><h2>{{ bi('会议酒店与地点', 'Conference venue and hotel') }}</h2><div class="complete-plain">{{ bi(content.venue.description, content.venue.description_en) }}</div>{{ images(content.venue.images, '会议场地') }}</section>{% else %}{% include 'yujian_site:feedback-sections.html' %}{% endif %}
+  {% endfor %}{% endif %}
+  </main>
+  <aside class="complete-aside" aria-label="Conference information">
+  {% if actions %}<section class="complete-side-section complete-actions"><h2>{{ bi('参会入口', 'Participate') }}</h2>{% for action in actions %}<div>{% if action.url %}<a class="complete-action" href="{{ action.url }}">{{ bi(action.zh, action.en) }}</a>{% else %}<strong>{{ bi(action.zh, action.en) }}</strong>{% endif %}{% if (action.text or action.text_en) and (action.key ~ '_info') not in sections %}<div class="complete-plain complete-action-notice">{{ bi(action.text, action.text_en) }}</div>{% endif %}{% if action.state_zh %}<p>{{ bi(action.state_zh, action.state_en) }}</p>{% endif %}</div>{% endfor %}</section>{% endif %}
+  {% if content.dates %}<section class="complete-side-section"><h2>{{ bi('重要日期', 'Important dates') }}</h2><dl class="complete-dates">{% for item in content.dates %}<div><dt><time>{{ item.date }}{% if item.end_date %} — {{ item.end_date }}{% endif %}</time></dt><dd>{{ bi(item.label, item.label_en) }}{% if item.countdown is not none and item.countdown >= 0 %}<small class="complete-countdown">{% if item.countdown == 0 %}{{ bi('今天', 'Today') }}{% else %}{{ bi('还有 ' ~ item.countdown ~ ' 天', item.countdown ~ ' days remaining') }}{% endif %}</small>{% endif %}</dd></div>{% endfor %}</dl></section>{% endif %}
+  {% for group in content.organizations %}<section class="complete-side-section"><h2>{{ bi(group.title, group.title_en) }}</h2><div class="complete-organizations">{% for organization in group['items'] %}<div class="complete-organization"><div>{% if organization.url %}<a href="{{ organization.url }}" target="_blank" rel="noopener noreferrer">{% endif %}{% if organization.image %}<img src="{{ organization.image }}" alt="{{ organization.name }}" loading="lazy">{% endif %}{% if organization.name or organization.name_en %}{{ bi(organization.name, organization.name_en) }}{% endif %}{% if organization.url %}</a>{% endif %}{% if organization.description or organization.description_en %}<p class="complete-plain">{{ bi(organization.description, organization.description_en) }}</p>{% endif %}{{ images(organization.images, organization.name) }}</div></div>{% endfor %}</div></section>{% endfor %}
+  {% set contact = content.contact %}{% if contact.enabled and (contact.name or contact.name_en or contact.phone or contact.email or contact.address or contact.address_en or contact.html or contact.html_en or contact.images) %}<section class="complete-side-section complete-contact"><h2>{{ bi('联系我们', 'Contact us') }}</h2><div>{% if contact.name or contact.name_en %}<p>{{ bi(contact.name, contact.name_en) }}</p>{% endif %}{% if contact.phone %}<p data-no-translate>{{ contact.phone }}</p>{% endif %}{% if contact.email %}<p><a href="mailto:{{ contact.email }}" data-no-translate>{{ contact.email }}</a></p>{% endif %}{% if contact.address or contact.address_en %}<p>{{ bi(contact.address, contact.address_en) }}</p>{% endif %}{{ rich_pair(contact.html, contact.html_en, 'contact') }}{{ images(contact.images, '联系方式') }}</div></section>{% endif %}
+  </aside>
+ </div>
+ <footer class="complete-footer"><a href="/"><img src="/portal-assets/meet-logo.png" width="36" height="36" alt="遇见科技">{{ bi('遇见科技会议服务平台', 'Meet Technology Conferences') }}</a><p data-no-translate>{{ event.title }}</p><small>{{ bi('会议内容由主办方维护', 'Conference content maintained by the organizers') }}</small></footer>
+</div>
+</body></html>

@@ -1,0 +1,19 @@
+{
+  "wechat": {
+    "enabled": false,
+    "appid": "",
+    "mchid": "",
+    "serial_no": "",
+    "private_key_path": "/opt/indico/etc/payment-config/wechat-private.pem",
+    "platform_key_id": "",
+    "platform_public_key_path": "/opt/indico/etc/payment-config/wechat-public.pem",
+    "api_v3_key": ""
+  },
+  "alipay": {
+    "enabled": false,
+    "app_id": "",
+    "seller_id": "",
+    "private_key_path": "/opt/indico/etc/payment-config/alipay-private.pem",
+    "alipay_public_key_path": "/opt/indico/etc/payment-config/alipay-public.pem"
+  }
+}

@@ -1,0 +1,28 @@
+{% extends 'layout/base.html' %}
+{% set demo_mail = indico_config.EMAIL_BACKEND == 'indico.vendor.django_mail.backends.locmem.EmailBackend' %}
+{% block page %}
+<script>document.documentElement.classList.add('meet-auth-page');</script>
+<link rel="stylesheet" href="/portal-assets/register.css">
+<link rel="stylesheet" href="/portal-assets/portal.css">
+<link rel="stylesheet" href="/portal-assets/conference-accounts.css">
+<script src="/portal-assets/translations.js" defer></script>
+<script src="/portal-assets/portal.js" defer></script>
+<script src="/portal-assets/register.js" defer></script>
+<section class="meet-register-page" aria-labelledby="register-heading">
+  <button class="language-toggle" type="button" aria-label="Switch to English">EN</button>
+  <div class="meet-register-inner">
+    <a class="meet-register-home" href="/">← 返回首页</a>
+    <div class="meet-register-card">
+      <a class="meet-register-brand" href="/"><img class="meet-register-logo" src="/portal-assets/meet-logo.png" width="86" height="88" alt="遇见科技 Meet Technology"><span>遇见科技<small>会议服务平台</small></span></a>
+      {% include 'auth/conference_context.html' %}
+      <h1 id="register-heading">{% block register_heading %}{{ '创建参会账号' if g.conference_auth else '创建遇见科技账号' }}{% endblock %}</h1>
+      <p class="meet-register-intro">{% block register_intro %}{{ '验证邮箱并创建账号，完成后继续本会议报名或投稿。' if g.conference_auth else '注册后，参与学术会议，管理您的会议空间。' }}{% endblock %}</p>
+      <ol class="meet-register-steps" aria-label="注册步骤"><li class="{{ 'complete' if register_step|default(1) == 2 else 'current' }}" {% if register_step|default(1) == 1 %}aria-current="step"{% endif %}><span>1</span>验证邮箱</li><li class="{{ 'current' if register_step|default(1) == 2 else '' }}" {% if register_step|default(1) == 2 %}aria-current="step"{% endif %}><span>2</span>填写账户信息</li></ol>
+      {% if demo_mail %}<aside id="register-mail-notice" class="meet-register-notice">当前为本地演示，暂未开通邮件发送。您将无法在真实邮箱收到验证邮件，可使用已有演示账号登录体验。</aside>{% endif %}
+      {% block register_content %}{% endblock %}
+      <p class="meet-register-login">已有遇见科技账号？<a href="{{ g.conference_auth.login_url if g.conference_auth else url_for('auth.login', next=request.args.get('next')) }}">立即登录</a></p>
+    </div>
+    <p class="meet-register-credit">遇见科技会议服务平台 · Powered by <a href="https://getindico.io" rel="noreferrer">Indico</a></p>
+  </div>
+</section>
+{% endblock %}

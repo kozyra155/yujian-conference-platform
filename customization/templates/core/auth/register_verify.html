@@ -1,0 +1,40 @@
+{% extends 'auth/meet_register_frame.html' %}
+{% from 'forms/_form.html' import simple_form, form_rows %}
+{% from 'message_box.html' import message_box %}
+{% block register_content %}
+  {% if email_sent or g.registration_cookie_lost %}
+    {# The status below describes delivery and continuation without duplicating the native flash. #}
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      {% if category in ('error', 'warning') %}{{ message_box(category, message) }}{% endif %}
+    {% endfor %}
+  {% else %}{% include 'flashed_messages.html' %}{% endif %}
+  {% if g.registration_cookie_lost %}
+    <div class="meet-register-notice" data-registration-cookie-lost role="alert" data-no-translate>
+      <h2 data-zh="浏览器未能保存验证状态" data-en="Your browser did not keep the verification session">浏览器未能保存验证状态</h2>
+      <p data-zh="请允许本网站使用 Cookie，然后重新打开邮件中的完整验证链接。在微信中可选择“在浏览器打开”。无需重新发送邮件。" data-en="Allow cookies for this site, then reopen the complete verification link from your email. In WeChat, choose Open in browser. You do not need another email.">请允许本网站使用 Cookie，然后重新打开邮件中的完整验证链接。在微信中可选择“在浏览器打开”。无需重新发送邮件。</p>
+    </div>
+  {% elif not email_sent %}
+    <p class="meet-register-help">请填写常用邮箱并完成安全验证，随后通过邮件链接继续注册。</p>
+    {% call simple_form(form, submit='发送验证邮件', back_button=false, disabled_until_change=false, form_header_kwargs={'id': 'meet-register-email-form'}) %}
+      {{ form_rows(form, widget_attrs={'email': {'placeholder': '请输入常用邮箱', 'autocomplete': 'email'}}) }}
+    {% endcall %}
+  {% else %}
+    <div class="meet-register-sent" role="status" data-email-sent="true">
+      <h2>{{ '验证请求已提交' if demo_mail else '请查收验证邮件' }}</h2>
+      {% if g.registration_pending_email %}<p>{{ g.registration_pending_email }}</p>{% endif %}
+      <p>{{ '演示环境不会发送真实邮件，完成邮件服务配置后即可体验完整注册流程。' if demo_mail else '请在一小时内打开邮件中的链接，继续填写账户信息。若未收到，请检查垃圾邮件。' }}</p>
+      <p data-zh="在手机或其他浏览器打开邮件后，请在该浏览器完成注册。此页面不会自动登录；完成后可回到这里登录。" data-en="If you open the email on another device or browser, finish registration there. This page will not sign in automatically; return here to log in afterward.">在手机或其他浏览器打开邮件后，请在该浏览器完成注册。此页面不会自动登录；完成后可回到这里登录。</p>
+      <details class="meet-register-link-recovery">
+        <summary data-zh="想在当前浏览器继续注册？" data-en="Continue registration in this browser?">想在当前浏览器继续注册？</summary>
+        <form method="post" data-verification-link-form data-no-translate>
+          <label for="verification-link" data-zh="从邮件复制完整验证链接" data-en="Copy the complete verification link from your email">从邮件复制完整验证链接</label>
+          <input id="verification-link" name="verification_link" type="url" required autocomplete="off" spellcheck="false">
+          <button type="submit" data-zh="验证并继续" data-en="Verify and continue">验证并继续</button>
+          <p data-verification-link-error role="alert" hidden data-zh="请粘贴本网站邮件中的完整有效链接。" data-en="Paste the complete verification link from this site's email.">请粘贴本网站邮件中的完整有效链接。</p>
+        </form>
+      </details>
+      <a class="meet-register-continue" href="{{ g.conference_auth.login_url if g.conference_auth else url_for('auth.login', next=request.args.get('next')) }}" data-zh="已在其他设备完成注册，前往登录" data-en="Finished on another device? Log in here">已在其他设备完成注册，前往登录</a>
+      <a class="meet-register-cancel" href="{{ url_for_logout() }}">返回并重新开始</a>
+    </div>
+  {% endif %}
+{% endblock %}

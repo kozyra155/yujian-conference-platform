@@ -1,0 +1,6 @@
+{% extends '~auth/login_page.html' %}
+{% block custom_message %}
+    <h1 class="meet-login-title">欢迎登录遇见科技</h1>
+    <p class="meet-login-subtitle">会议服务平台</p>
+    {% include 'auth/conference_context.html' %}
+{% endblock %}

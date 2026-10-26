@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>意向登记 · {{ event.title }}</title><link rel="stylesheet" href="/portal-assets/interest.css">
+<script src="/portal-assets/translations.js" defer></script><script src="/portal-assets/portal.js" defer></script>
+</head><body data-conference-title="意向登记 · {{ event.title }}"><main class="interest-shell">
+<nav><a href="/event/{{ event.id }}/" data-zh="返回会议首页" data-en="Conference home">返回会议首页</a><button type="button" class="language-toggle" aria-label="Switch language">EN</button></nav>
+<header><p>{{ event.title }}</p><h1 data-zh="产业对接 · 意向登记" data-en="Industry matchmaking · Register your interest">产业对接 · 意向登记</h1>
+<p data-zh="{{ introduction.text or '请选择需求类型，填写对接信息。主办方将根据需求组织后续交流。' }}" data-en="{{ introduction.text_en or 'Choose your area of interest and share your needs. The organizer will arrange further communication.' }}">{{ introduction.text or '请选择需求类型，填写对接信息。主办方将根据需求组织后续交流。' }}</p></header>
+{% if not session.user %}<aside><p data-zh="请先登录或注册经邮箱验证的账号后填写意向。" data-en="Log in or create an email-verified account to submit your interest.">请先登录或注册经邮箱验证的账号后填写意向。</p><a href="{{ account.login_url }}" data-zh="登录" data-en="Log in">登录</a> · <a href="{{ account.register_url }}" data-zh="注册账号" data-en="Create account">注册账号</a></aside>{% endif %}
+<section class="interest-options" aria-label="需求类型">
+{% for option in options %}<article><span class="interest-number">0{{ loop.index }}</span><h2 data-zh="{{ option.title }}" data-en="{{ option.title_en }}">{{ option.title }}</h2><p data-zh="{{ option.description }}" data-en="{{ option.description_en }}">{{ option.description }}</p>
+{% if option.available %}<a class="interest-action" href="{{ option.url }}" data-zh="填写意向" data-en="Register interest">填写意向</a>{% else %}<span class="interest-closed" data-zh="登记暂未开放" data-en="Registration is closed">登记暂未开放</span>{% endif %}</article>{% endfor %}
+</section><footer data-zh="信息仅向您本人及获授权的会议管理人员展示。" data-en="Your information is visible only to you and authorized conference organizers.">信息仅向您本人及获授权的会议管理人员展示。</footer>
+</main></body></html>

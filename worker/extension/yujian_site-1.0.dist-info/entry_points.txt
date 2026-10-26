@@ -1,0 +1,2 @@
+[indico.plugins]
+yujian_site = yujian_site:YujianSitePlugin

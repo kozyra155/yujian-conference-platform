@@ -1,0 +1,23 @@
+body{margin:0;font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif}
+.login-page{display:flex;position:relative;min-height:100svh;height:auto;width:100%;background:#f1f7f9 url('/portal-assets/meet-background.png') no-repeat right center;background-size:auto 100%;isolation:isolate;font-family:inherit}
+.login-page:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f3f8fa 0%,#f3f8fa 40%,#f3f8fad9 55%,#f3f8fa20 78%);z-index:-1}
+.login-page .middle{display:flex;align-items:center;min-height:100svh;width:100%;padding:40px 8vw}
+.login-page .middle .centered-column-wrapper{width:460px;max-width:100%;margin:0}
+.login-page .middle .centered-column-wrapper .centered-column{width:100%;margin:0;padding:36px 40px 30px;background:#ffffffed;border:1px solid #dfeaf0;border-radius:8px;box-shadow:0 12px 48px #23516e0d;box-sizing:border-box}
+.login-page .middle .centered-column-wrapper .header-logo{width:126px;height:129px;object-fit:contain;margin:0 0 12px}
+.meet-login-title{color:#244d68;font-size:25px;font-weight:500;margin:0 0 10px;line-height:1.5}
+.meet-login-subtitle{color:#708893;font-size:14px;margin:0 0 30px}
+.login-page form input:not([type=submit]):not([type=hidden]){height:48px;margin:0 0 15px;padding:12px 15px;border:1px solid #cddce4;border-radius:4px;background:white;color:#244d68;font-size:15px;font-family:inherit;box-sizing:border-box}
+.login-page input:focus-visible,.login-page a:focus-visible,.login-page button:focus-visible{outline:2px solid #1687a4;outline-offset:3px}
+.login-page .forgot-my-password{margin:2px 0 15px;font-size:13px}
+.login-page a{color:#177d9e}
+.login-page .i-button.login-form-button{background:#1487a5;border:1px solid #1487a5;border-radius:4px;color:white;height:47px;line-height:1.4;font-size:16px;font-family:inherit}
+.login-page .i-button.login-form-button:hover{background:#116f8b;border-color:#116f8b}
+.login-page .register{font-size:13px;color:#70818c;line-height:1.8;margin:22px 0}
+.login-page .link{font-size:14px;text-align:left;margin-top:26px}
+.login-page .middle .centered-column-wrapper .footer{position:static;width:auto;margin:24px auto 0;min-height:0;color:#788b98;font-size:11px;line-height:1.7}
+.login-page .footer .footer-logo{width:56px;height:auto}
+@media(min-width:1700px){.login-page .middle{padding-left:15vw}.login-page{background-size:auto 115%}}
+@media(max-width:900px){.login-page .middle{padding:32px 5vw}.login-page{background-position:right -130px center}.login-page:before{background:linear-gradient(90deg,#f3f8fa 0%,#f3f8faee 38%,#f3f8fa70 80%)}}
+@media(max-width:600px){.login-page{background-position:center;background-size:cover}.login-page:before{background:#f3f8fabd}.login-page .middle{padding:30px 20px;justify-content:center}.login-page .middle .centered-column-wrapper{width:400px}.login-page .middle .centered-column-wrapper .centered-column{padding:28px 25px 24px}.login-page .middle .centered-column-wrapper .header-logo{width:105px;height:108px}.meet-login-title{font-size:23px}.meet-login-subtitle{margin-bottom:25px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

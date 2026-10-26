@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "server": "smtp.example.invalid",
+  "port": 465,
+  "ssl": true,
+  "starttls": false,
+  "username": "no-reply@example.invalid",
+  "password": ""
+}

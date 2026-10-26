@@ -1,0 +1,21 @@
+{% if section in ('registration_info', 'submission_info') %}
+{% set key = 'registration' if section == 'registration_info' else 'submission' %}
+{% set instruction = content.actions[key] %}
+<section class="complete-section" id="{{ key }}-info"><h2>{{ bi('报名须知', 'Registration instructions') if key == 'registration' else bi('投稿须知', 'Submission instructions') }}</h2><div class="complete-plain">{{ bi(instruction.text, instruction.text_en) }}</div>
+{% for action in actions if action.key == key %}{% if action.url %}<p><a class="complete-action" href="{{ action.url }}">{{ bi(action.zh, action.en) }}</a></p>{% endif %}{% if action.state_zh %}<p>{{ bi(action.state_zh, action.state_en) }}</p>{% endif %}{% endfor %}</section>
+{% elif section == 'committees' %}
+<section class="complete-section" id="committees"><h2>{{ bi('会议委员会', 'Conference committees') }}</h2>
+{% for group in content.committees %}<div class="complete-committee">{% if group.title or group.title_en %}<h3>{{ bi(group.title, group.title_en) }}</h3>{% endif %}<ul class="complete-members">{% for member in group.members %}<li><strong>{{ bi(member.name, member.name_en) }}</strong>{% if member.affiliation or member.affiliation_en %}<span>{{ bi(member.affiliation, member.affiliation_en) }}</span>{% endif %}</li>{% endfor %}</ul></div>{% endfor %}</section>
+{% elif section == 'topics' %}
+<section class="complete-section" id="topics"><h2>{{ bi('会议议题', 'Conference topics') }}</h2>{% if content.topic_note or content.topic_note_en %}<p class="complete-plain">{{ bi(content.topic_note, content.topic_note_en) }}</p>{% endif %}<div class="complete-content-cards">{% for item in content.topics %}<article><h3>{{ bi(item.title, item.title_en) }}</h3><p class="complete-plain">{{ bi(item.keywords, item.keywords_en) }}</p></article>{% endfor %}</div></section>
+{% elif section == 'industry' %}
+<section class="complete-section" id="industry"><h2>{{ bi('产业需求与合作方向', 'Industry needs and collaboration') }}</h2><div class="complete-content-cards">{% for item in content.industry %}<article>{% if item.title or item.title_en %}<h3>{{ bi(item.title, item.title_en) }}</h3>{% endif %}{% if item.description or item.description_en %}<p class="complete-plain">{{ bi(item.description, item.description_en) }}</p>{% endif %}{% if item.goal or item.goal_en %}<h4>{{ bi('合作目标', 'Collaboration goals') }}</h4><p class="complete-plain">{{ bi(item.goal, item.goal_en) }}</p>{% endif %}{% if item.cooperation or item.cooperation_en %}<h4>{{ bi('合作方式', 'Ways to collaborate') }}</h4><p class="complete-plain">{{ bi(item.cooperation, item.cooperation_en) }}</p>{% endif %}</article>{% endfor %}</div></section>
+{% elif section == 'showcase' %}
+<section class="complete-section" id="showcase"><h2>{{ bi('成果展示形式', 'Showcase formats') }}</h2><div class="complete-choice-cards">{% for item in content.showcase %}<article>{{ bi(item, choice_labels.get(item, item)) }}</article>{% endfor %}</div></section>
+{% elif section == 'matchmaking' %}
+<section class="complete-section" id="matchmaking"><h2>{{ bi('产业对接与交流活动', 'Industry matchmaking and activities') }}</h2>{% if content.matchmaking.text or content.matchmaking.text_en %}<p class="complete-plain">{{ bi(content.matchmaking.text, content.matchmaking.text_en) }}</p>{% endif %}<div class="complete-choice-cards">{% for item in content.matchmaking.activities %}<article>{{ bi(item, choice_labels.get(item, item)) }}</article>{% endfor %}</div>{% if matchmaking_intent_url|default('') %}<a class="complete-action" href="{{ matchmaking_intent_url }}">{{ bi('提交对接意向', 'Express collaboration interest') }}</a>{% endif %}</section>
+{% elif section == 'audience' %}
+<section class="complete-section" id="audience"><h2>{{ bi('参会对象', 'Who should attend') }}</h2><div class="complete-content-cards">{% for item in content.audience %}<article><h3>{{ bi(item, choice_labels.get(item, item)) }}</h3>{% set description = audience_descriptions.get(item) %}{% if description %}<p>{{ bi(description[0], description[1]) }}</p>{% endif %}</article>{% endfor %}</div></section>
+{% elif section == 'highlights' %}
+<section class="complete-section" id="highlights"><h2>{{ bi('会议亮点', 'Conference highlights') }}</h2><div class="complete-choice-cards">{% for item in content.highlights %}<article>{{ bi(item, choice_labels.get(item, item)) }}</article>{% endfor %}</div></section>
+{% endif %}

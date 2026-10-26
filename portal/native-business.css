@@ -1,0 +1,76 @@
+.meet-native-business{min-width:0}
+.meet-native-business .workspace-content{min-width:0}
+.meet-native-business .workspace-heading p{overflow-wrap:anywhere}
+.meet-business-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;padding:8px;background:#fff;border:1px solid #e0e9f1;border-radius:8px}
+.meet-business-tabs a{padding:10px 16px;color:#617e94;border-radius:5px;font-size:13px}
+.meet-business-tabs a.selected{background:#eaf3fa;color:#246b9b}
+.meet-business-content{min-width:0;background:#fff;border:1px solid #e0e9f1;border-radius:9px;padding:25px;box-shadow:0 3px 12px #254b6810;overflow-wrap:anywhere}
+.meet-business-content .layout-side-menu{display:block!important;margin:0!important;padding:0!important;min-width:0!important}
+.meet-business-content .layout-side-menu>.menu-column,.meet-business-content #event-management-header-right,.meet-business-content .confheader,.meet-business-content .conf_leftMenu{display:none!important}
+.meet-business-content .layout-side-menu>.content-column,.meet-business-content .conf,.meet-business-content #confSectionsBox,.meet-business-content .confBodyBox,.meet-business-content .mainContent,.meet-business-content .col2{width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:0!important;float:none!important;border:0!important}
+.meet-business-content .management-page,.meet-business-content .conference-page{width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;padding:0!important}
+.meet-business-content .management-page>header,.meet-business-content .conference-page>header{padding:0 0 22px;margin:0 0 22px;border-bottom:1px solid #e9eff4}
+.meet-business-content h2{font-size:21px;color:#32536c;font-weight:500}
+.meet-business-content h3{font-size:16px;color:#4e6c82;font-weight:500;line-height:1.7}
+.meet-business-content .page-content{padding:0!important;min-width:0!important;max-width:100%!important}
+.meet-business-content .page-description,.meet-business-content .page-info{color:#71889b;font-size:13px;line-height:1.9}
+.meet-business-content .action-box,.meet-business-content .i-box{max-width:100%;border-radius:7px;border-color:#dce7ef;box-shadow:none}
+.meet-business-content .action-box>.section{padding:19px;min-width:0;gap:16px}
+.meet-business-content .action-box .text{min-width:0;line-height:1.8}
+.meet-business-content .action-box .label{color:#3d6078}
+.meet-business-content .toolbar,.meet-business-content .toolbar .group{flex-wrap:wrap;max-width:100%;gap:5px}
+.meet-business-content .toolbar .group{margin-left:0}
+.meet-business-content .i-button,.meet-business-content .ui.button{border-radius:5px;box-shadow:none;font-size:12px}
+.meet-business-content .i-button.highlight:not(.text-color):not(.borderless):not(.label),.meet-business-content .ui.primary.button{background:#246b9b;border-color:#246b9b;color:#fff}
+.meet-business-content .i-button.highlight.text-color:not(.color-on-hover),.meet-business-content .i-button.highlight.borderless{color:#246b9b}
+.meet-business-content .i-form,.meet-business-content .ui.form,.meet-business-content .form-group,.meet-business-content .form-field{max-width:100%;min-width:0}
+.meet-business-content .i-form .form-label{font-size:13px;color:#526f84}
+.meet-business-content .i-form input:not([type=checkbox]):not([type=radio]),.meet-business-content .i-form select,.meet-business-content .i-form textarea,.meet-business-content .ui.form input,.meet-business-content .ui.form textarea{max-width:100%;border-color:#ccdce8;border-radius:5px}
+.meet-business-content table{max-width:100%}
+.meet-business-table{max-width:100%;overflow:auto;margin-bottom:16px;overscroll-behavior-x:contain}
+.meet-business-table table{margin-bottom:0}
+.meet-business-table:focus-visible{outline:3px solid #e7b54c;outline-offset:3px}
+.meet-business-content .i-timeline,.meet-business-content .i-timeline-item,.meet-business-content .i-timeline-item-box{max-width:100%;min-width:0}
+.meet-business-content .contribution-row{min-width:0}
+.meet-business-content .call-for-abstracts{max-width:none}
+.meet-business-content .ui.segment,.meet-business-content .ui.segments{box-shadow:none;border-color:#dce7ef}
+body:has(.meet-native-business) .ui-dialog{max-width:calc(100vw - 24px)!important;border-radius:8px;box-shadow:0 12px 44px #173a5940}
+body:has(.meet-native-business) .ui-dialog .ui-dialog-content{max-width:100%;overflow-x:auto}
+body:has(.meet-native-business) .ui-dialog .i-form,body:has(.meet-native-business) .ui-dialog .ui.form{max-width:100%;min-width:0}
+body:has(.meet-native-business) .ui-dialog .ui-dialog-titlebar{background:#f3f7fb;border-color:#e0e9f1;color:#365b76}
+body:has(.meet-native-business) .ui-dialog input:not([type=checkbox]):not([type=radio]),body:has(.meet-native-business) .ui-dialog textarea,body:has(.meet-native-business) .ui-dialog select{max-width:100%}
+@media(max-width:1000px){
+ .meet-business-content{padding:20px}
+ .meet-business-content .action-box>.section{flex-wrap:wrap}
+ .meet-business-content .action-box>.section>.toolbar{margin-left:0}
+}
+@media(max-width:760px){
+ body:has(.meet-native-business) .ui-dialog{left:12px!important}
+ .meet-business-content .abstract-content{padding:14px}
+ .meet-business-content [class*=dropzone-area] .ui.grid{display:flex;flex-direction:column;gap:12px;margin:0}
+ .meet-business-content [class*=dropzone-area] .ui.grid>.column{width:100%!important;padding:0!important}
+ .meet-business-content [class*=picture-selection-btn]{width:100%;transform:none!important;margin:0!important}
+ .meet-business-tabs{margin-bottom:16px;gap:4px;padding:6px}
+ .meet-business-tabs a{padding:9px 10px;font-size:11px}
+ .meet-business-content{padding:17px 14px}
+ .meet-business-content .management-page>header,.meet-business-content .conference-page>header{padding-bottom:15px;margin-bottom:17px}
+ .meet-business-content h2{font-size:18px}
+ .meet-business-content h3{font-size:14px}
+ .meet-business-content .action-box>.section{padding:14px;gap:10px}
+ .meet-business-content .action-box>.section>.icon{font-size:25px}
+ .meet-business-content .action-box>.section>.text{width:calc(100% - 45px);flex:1}
+ .meet-business-content .action-box>.section>.toolbar{flex-basis:100%}
+ .meet-business-content .i-form .form-group{display:flex;flex-direction:column;align-items:stretch;gap:7px}
+ .meet-business-content .i-form .form-label{width:100%!important;text-align:left!important;margin-left:0;padding-left:0}
+ .meet-business-content .i-form .form-field{width:100%!important;margin-left:0!important}
+ .meet-business-content .ui.form .fields{flex-wrap:wrap}
+ .meet-business-content .ui.form .fields>.field{width:100%!important;margin-bottom:12px}
+ .meet-business-content .toolbar{white-space:normal}
+ .meet-business-content .toolbar .group{min-width:0}
+ .meet-business-content .toolbar input{min-width:0;max-width:100%}
+ .meet-business-content .i-timeline{padding-left:0}
+ .meet-business-content .contribution-row{display:flex;flex-direction:column;align-items:stretch}
+ body:has(.meet-native-business) .ui-dialog .i-form .form-group{display:flex;flex-direction:column;gap:7px}
+ body:has(.meet-native-business) .ui-dialog .i-form .form-label{width:100%!important;text-align:left!important}
+ body:has(.meet-native-business) .ui-dialog .i-form .form-field{width:100%!important;min-width:0;margin-left:0!important}
+}
