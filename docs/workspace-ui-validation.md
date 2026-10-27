@@ -19,12 +19,12 @@ Vue 3.5.44、Element Plus 2.14.7、Vite 8.3.4 固定版本，依赖锁定在 `fr
 ## 已运行验证
 
 - `npm run build`：本地生产构建成功。单个 JS 约 570KB、CSS 约 386KB（未压缩传输大小），构建工具给出较大 chunk 提示，未作为错误。
-- `verify_workspace_ui.cjs`：指定原生入口、Element Plus 组件、目录搜索响应乱序保护、手机参会记录入口、界面中英文、会议标题保留，320/390/760/1440px 无页面横向溢出；320px 日期选择弹层检查通过。
-- `verify_workspace_creation.cjs`：普通演示账号从原生 hash 入口进入创建页，日期组件解析正确，真实提交返回 201，生成私密草稿；匿名访问被拒绝，临时会议已标记删除。
-- `verify_builder_browser.cjs`：体验会议 4 的原生富文本保存、草稿保护、发布、实际门户列表查询、撤回、再次发布、中英与移动端通过；最终保留体验会议公开。
-- `verify_site_builder.py`：原生注册、创建、跨账号与 CSRF、锁定、附件、旧导出、草稿与只读 ACL 回归通过；新增协作管理者列表、权限撤回、受保护通知不出现在摘要、原生自定义首页、HTML 清洗和显式自定义 CSS 保留检查通过。使用进程内邮件后端，不外发注册邮件，临时账号及会议标记删除。
-- `verify_native_ui.cjs`：原生编辑器、资料和参会记录的样式及 320/390/760/1440px 布局通过；手机导航展开和收起可用。
-- `verify_portal.cjs`、`verify_session_language.cjs`：首页搜索、导航、创建入口、实际登录状态、语言保持和退出登录通过。
+- `tests/browser/verify_workspace_ui.cjs`：指定原生入口、Element Plus 组件、目录搜索响应乱序保护、手机参会记录入口、界面中英文、会议标题保留，320/390/760/1440px 无页面横向溢出；320px 日期选择弹层检查通过。
+- `tests/browser/verify_workspace_creation.cjs`：普通演示账号从原生 hash 入口进入创建页，日期组件解析正确，真实提交返回 201，生成私密草稿；匿名访问被拒绝，临时会议已标记删除。
+- `tests/browser/verify_builder_browser.cjs`：体验会议 4 的原生富文本保存、草稿保护、发布、实际门户列表查询、撤回、再次发布、中英与移动端通过；最终保留体验会议公开。
+- `tests/backend/verify_site_builder.py`：原生注册、创建、跨账号与 CSRF、锁定、附件、旧导出、草稿与只读 ACL 回归通过；新增协作管理者列表、权限撤回、受保护通知不出现在摘要、原生自定义首页、HTML 清洗和显式自定义 CSS 保留检查通过。使用进程内邮件后端，不外发注册邮件，临时账号及会议标记删除。
+- `tests/browser/verify_native_ui.cjs`：原生编辑器、资料和参会记录的样式及 320/390/760/1440px 布局通过；手机导航展开和收起可用。
+- `tests/browser/verify_portal.cjs`、`tests/browser/verify_session_language.cjs`：首页搜索、导航、创建入口、实际登录状态、语言保持和退出登录通过。
 
 截图位于项目上级 `output/`：`yujian-directory-desktop.png`、`yujian-dashboard-desktop.png`、`yujian-builder-create-desktop.png`、`yujian-workspace-mobile.png`、`yujian-site-desktop.png`、`yujian-native-editor-mobile.png`。
 

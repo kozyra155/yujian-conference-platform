@@ -12,7 +12,7 @@
 
 Indico 的 `BASE_URL` 已同步为内网地址，避免地址校验失败或生成localhost链接。原本的 <http://localhost:12880/> 和127.0.0.1入口会以307跳转至内网站点，登录会话使用内网地址，首次切换可能需要重新登录。
 
-本机网页与实际登录/工作台已验证，另从应用容器请求Windows内网地址返回200；尚未从另一台实体电脑实测。可运行 `node verify_lan_access.cjs` 复查实际登录、资料表单和工作台，测试账号会清理。现有验证/预览脚本也已同步站点地址。
+本机网页与实际登录/工作台已验证，另从应用容器请求Windows内网地址返回200；尚未从另一台实体电脑实测。可运行 `node tests/browser/verify_lan_access.cjs` 复查实际登录、资料表单和工作台，测试账号会清理。现有验证/预览脚本也已同步站点地址。
 
 此地址取自当前网卡，IP变化后需同步 `docker-compose.yml` 的内网绑定、私有 `indico.conf` 的 `BASE_URL`、`nginx.conf` 的本地跳转及防火墙规则LocalAddress，并重启应用、重新创建Nginx。建议在路由器中为这台电脑保留该IP。未配置公网映射或HTTPS。
 
@@ -41,7 +41,7 @@ docker compose stop
 
 `stop` 保留数据。不要使用 `down -v`，它会删除本演示的数据库和附件数据卷。
 
-只读检查六个服务、自动重启策略和主要页面：`D:/python/python.exe verify_service_recovery.py`。
+只读检查六个服务、自动重启策略和主要页面：`D:/python/python.exe tests/backend/verify_service_recovery.py`。
 
 ## 新环境配置
 
@@ -73,10 +73,10 @@ Copy-Item payment-config/merchant.example.json payment-config/merchant.json
 ```powershell
 docker compose cp demo-accounts.json indico-web:/tmp/demo-accounts.json
 docker compose cp seed_demo.py indico-web:/tmp/seed_demo.py
-docker compose cp verify_demo.py indico-web:/tmp/verify_demo.py
+docker compose cp tests/backend/verify_demo.py indico-web:/tmp/verify_demo.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/seed_demo.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/verify_demo.py | Set-Content -Encoding utf8 verification.json
-node verify_browser.cjs
+node tests/browser/verify_browser.cjs
 ```
 
 初始化可重复执行，复用已有账户、会议和自定义页面。浏览器验证使用本机现有的 Playwright 安装（`D:/playwright-demo/node_modules/playwright`），输出截图到上一级 `output` 目录。
@@ -97,7 +97,7 @@ node verify_browser.cjs
 
 创建入口为 `/conference/create/`。已完成原生验证的有效登录账号可自助创建；后台仅授予平台目录的 `create` 权限，不授予目录管理、全局管理员或其他会议管理权限。完整学术模板生成主导航和子页面，新网站作为私密草稿保存。
 
-运行 `node verify_portal.cjs` 验证首页搜索、导航、轮播、公告、创建表单与响应式布局，运行 `node verify_browser.cjs` 复测原有会议和权限隔离。首页与活动页读取 `/api/conferences/`，发布和撤回自动反映到列表。旧宣讲会已移除；会议卡片支持时间、学科、城市、关键词筛选和显示时区/语言设置，见 [会议检索](docs/conference-search-plan.md) 与 [会议卡片](docs/conference-cards-validation.md)。
+运行 `node tests/browser/verify_portal.cjs` 验证首页搜索、导航、轮播、公告、创建表单与响应式布局，运行 `node tests/browser/verify_browser.cjs` 复测原有会议和权限隔离。首页与活动页读取 `/api/conferences/`，发布和撤回自动反映到列表。旧宣讲会已移除；会议卡片支持时间、学科、城市、关键词筛选和显示时区/语言设置，见 [会议检索](docs/conference-search-plan.md) 与 [会议卡片](docs/conference-cards-validation.md)。
 
 ## 公司品牌素材
 
@@ -105,13 +105,13 @@ node verify_browser.cjs
 
 `customization/templates/` 通过只读挂载使用 Indico 的模板扩展机制；登录页仍继承原有表单、CSRF、错误消息与登录事件。`indico.conf` 中 `LOGIN_LOGO_URL`、`LOGO_URL`、`FAVICON_URL` 均指向 `/portal-assets/meet-logo.png`。增加模板挂载后执行 `docker compose up -d --no-deps --no-build indico-web`，随后 `docker compose restart indico-nginx`；后续模板或应用配置修改后需要重新启动应用以清除缓存。
 
-运行 `node verify_brand.cjs` 验证素材、登录、CSRF 字段、会议权限和手机布局。截图位于 `../output/yujian-brand-desktop.png`、`yujian-brand-mobile.png`、`yujian-login-desktop.png`、`yujian-login-mobile.png`。
+运行 `node tests/browser/verify_brand.cjs` 验证素材、登录、CSRF 字段、会议权限和手机布局。截图位于 `../output/yujian-brand-desktop.png`、`yujian-brand-mobile.png`、`yujian-login-desktop.png`、`yujian-login-mobile.png`。
 
 ## 会议活动与注册页
 
 会议列表：<http://localhost:12880/events/>；注册：<http://localhost:12880/register/>。
 
-运行 `D:/python/python.exe build_events.py` 组装会议列表页。运行 `node verify_events.cjs` 检查筛选、搜索、时区、会议状态和手机布局。
+运行 `D:/python/python.exe build_events.py` 组装会议列表页。运行 `node tests/browser/verify_events.cjs` 检查筛选、搜索、时区、会议状态和手机布局。
 
 注册页面复用原有验证码和表单。验证第二步需先生成一个内部 UI 测试链接：
 
@@ -119,7 +119,7 @@ node verify_browser.cjs
 docker compose cp make_register_preview.py indico-web:/tmp/make_register_preview.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/make_register_preview.py
 docker compose cp indico-web:/tmp/register-preview.json .register-preview.json
-node verify_register.cjs
+node tests/browser/verify_register.cjs
 ```
 
 测试链接有效期一小时，不要公开；测试不发送邮件或创建账号。会话结束后可删除该临时 JSON。
@@ -128,7 +128,7 @@ node verify_register.cjs
 
 私有配置为 `smtp-settings.json`，默认关闭真实发信。填写完整企业邮箱账号和客户端授权码后，运行 `D:/python/python.exe check_smtp.py` 检查认证；它不会发送邮件。认证成功后设置 `enabled: true` 并执行 `docker compose restart indico-web indico-celery indico-celery-beat` 使配置生效。首次新增挂载需运行 `docker compose up -d --no-build`，并重启 `indico-nginx`。
 
-`D:/python/python.exe check_smtp.py --connect-only` 仅检查加密连接；`D:/python/python.exe -m unittest test_smtp_config.py` 检查配置校验。`verify_demo.py` 现在兼容演示与真实 SMTP 模式，但仅做模型、权限和设置检查，不发送邮件。`verify_smtp_runtime.py` 可在应用及 Celery 容器内检查真实配置及认证，也不发送邮件。
+`D:/python/python.exe check_smtp.py --connect-only` 仅检查加密连接；`D:/python/python.exe -m unittest discover -s tests/backend -p test_smtp_config.py` 检查配置校验。`tests/backend/verify_demo.py` 现在兼容演示与真实 SMTP 模式，但仅做模型、权限和设置检查，不发送邮件。`tests/backend/verify_smtp_runtime.py` 可在应用及 Celery 容器内检查真实配置及认证，也不发送邮件。
 
 2026-10-14 已按用户提供的 QQ 邮箱账号修正为 `smtp.qq.com:465` 并启用 SSL。配置通过 `locals().update(...)` 加载，以适配 Indico 配置解析器；原先 `globals().update(...)` 不会覆盖设置。应用及后台任务的认证已验证，实际邮件收件仍需单独确认。
 
@@ -140,7 +140,7 @@ node verify_register.cjs
 
 会话模板通过既有用户变量视图提供精简响应，Nginx 禁止缓存。修改共享门户页头或翻译脚本后运行 `D:/python/python.exe build_events.py`；修改模板后重启 `indico-web` 清除模板缓存。修改 Nginx 配置需先 `nginx -t` 再 reload。
 
-运行 `node verify_session_language.cjs` 验证会话、语言和手机布局；该测试使用现有演示账户，不发送邮件。详细边界与截图见 [门户会话与语言记录](docs/portal-session-language.md)。
+运行 `node tests/browser/verify_session_language.cjs` 验证会话、语言和手机布局；该测试使用现有演示账户，不发送邮件。详细边界与截图见 [门户会话与语言记录](docs/portal-session-language.md)。
 
 ## 一键建站
 
@@ -168,10 +168,10 @@ docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/backfill_dem
 验收命令：
 
 ```powershell
-docker compose cp verify_site_builder.py indico-web:/tmp/verify_site_builder.py
+docker compose cp tests/backend/verify_site_builder.py indico-web:/tmp/verify_site_builder.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/verify_site_builder.py
-node verify_builder_browser.cjs
-D:/python/python.exe -m unittest test_smtp_config.py
+node tests/browser/verify_builder_browser.cjs
+D:/python/python.exe -m unittest discover -s tests/backend -p test_smtp_config.py
 ```
 
 后端测试使用测试签名链接走原生注册接口，在测试进程内禁用外发邮件，并将临时账号及会议标记删除；不会修改真实账号。浏览器测试使用现有 host-a，复用或创建唯一的体验会议并保留为公开验收示例，测试中会编辑其委员会栏目及切换发布状态。
@@ -195,11 +195,11 @@ D:/python/python.exe build_builder.py
 docker compose -p yujian-indico-v1 restart indico-web indico-celery indico-celery-beat
 ```
 
-测试：`node verify_workspace_ui.cjs`（目录、工作台、中英、搜索乱序与响应式）、`node verify_workspace_creation.cjs`（真实组件表单创建并清理临时会议）、`node verify_native_ui.cjs`（编辑器、资料、参会记录及手机布局）。既有 `verify_site_builder.py`、`verify_builder_browser.cjs`、`verify_portal.cjs`、`verify_session_language.cjs` 保留并继续验证。详细记录见 [界面验收](docs/workspace-ui-validation.md)。
+测试：`node tests/browser/verify_workspace_ui.cjs`（目录、工作台、中英、搜索乱序与响应式）、`node tests/browser/verify_workspace_creation.cjs`（真实组件表单创建并清理临时会议）、`node tests/browser/verify_native_ui.cjs`（编辑器、资料、参会记录及手机布局）。既有 `tests/backend/verify_site_builder.py`、`tests/browser/verify_builder_browser.cjs`、`tests/browser/verify_portal.cjs`、`tests/browser/verify_session_language.cjs` 保留并继续验证。详细记录见 [界面验收](docs/workspace-ui-validation.md)。
 
 2026-10-15：进一步重做栏目编辑与个人中心。托管会议的原生栏目编辑地址保持不变，由插件在原生授权后渲染新工作台，Element Plus 工具栏配合原生富文本、菜单及排序逻辑。自定义菜单关闭时可以直接启用，锁定会议只读。当前用户资料及参会记录通过 `customization/templates/core/users/` 扩展原生模板，保留 React 表单、账号功能、角色数据与日历入口。源码及验收细节见 [栏目编辑与个人中心验收](docs/menu-editor-validation.md)。
 
-运行 `node verify_menu_editor.cjs` 只读检查会议 22；运行 `node verify_user_frame.cjs` 检查资料/记录和语言输入保持；运行 `node verify_menu_editor_flow.cjs` 使用临时账号及会议验证真实保存、添加、编辑、显隐、首页、拖拽、删除、菜单重新启用及锁定权限，最后将临时数据标记删除。
+运行 `node tests/browser/verify_menu_editor.cjs` 只读检查会议 22；运行 `node tests/browser/verify_user_frame.cjs` 检查资料/记录和语言输入保持；运行 `node tests/browser/verify_menu_editor_flow.cjs` 使用临时账号及会议验证真实保存、添加、编辑、显隐、首页、拖拽、删除、菜单重新启用及锁定权限，最后将临时数据标记删除。
 
 ## 完整学术会议模板
 
@@ -209,7 +209,7 @@ docker compose -p yujian-indico-v1 restart indico-web indico-celery indico-celer
 
 原生报名/摘要投稿已经接到实际业务，主办方仍需配置表单、开放时间等；也可选择外部链接。收款与开票状态以后文“公司统一收款”为准。图片用原生附件归档与会议权限，Nginx允许6MiB请求，应用图片上限5MiB。完整验收、使用方式、源码和边界见[完整会议建站验收](docs/complete-conference-validation.md)。
 
-新增检查：`node verify_complete_editor.cjs`、`node verify_complete_public.cjs`、`node verify_complete_mobile.cjs`，以及容器内运行`verify_complete_site.py`、`verify_complete_rendering.py`、`verify_complete_business.py`。这些测试使用临时记录且不发送外部邮件。
+新增检查：`node tests/browser/verify_complete_editor.cjs`、`node tests/browser/verify_complete_public.cjs`、`node tests/browser/verify_complete_mobile.cjs`，以及容器内运行`tests/backend/verify_complete_site.py`、`tests/backend/verify_complete_rendering.py`、`tests/backend/verify_complete_business.py`。这些测试使用临时记录且不发送外部邮件。
 
 ## 十二种预制外观
 
@@ -250,16 +250,18 @@ docker compose -p yujian-indico-v1 restart indico-web indico-celery indico-celer
 
 ## 最近修复的验证命令
 
+2026-10-27 已将验收脚本统一归入 `tests/backend/` 与 `tests/browser/`；按功能选择命令见 [测试说明](tests/README.md)。根目录不再保留 `verify_*` 或浏览器诊断脚本。
+
 以下后端测试在容器中运行；支付测试只创建独立临时数据并使用内存邮件、模拟支付网络。先阅读测试脚本；早期演示验证可能操作既有示例账号和会议，不能直接批量运行全部 `verify_*`。
 
 ```powershell
-docker compose cp verify_review_regressions.py indico-web:/tmp/verify_review_regressions.py
+docker compose cp tests/backend/verify_review_regressions.py indico-web:/tmp/verify_review_regressions.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/verify_review_regressions.py
-docker compose cp verify_payments.py indico-web:/tmp/verify_payments.py
+docker compose cp tests/backend/verify_payments.py indico-web:/tmp/verify_payments.py
 docker compose exec -T indico-web /opt/indico/.venv/bin/python /tmp/verify_payments.py
-node verify_payments_ui.cjs
+node tests/browser/verify_payments_ui.cjs
 node --test frontend/apiErrors.test.mjs
-D:/python/python.exe verify_service_recovery.py
+D:/python/python.exe tests/backend/verify_service_recovery.py
 ```
 
 2026-10-23 上述检查通过；新增回归为 10 项，付款界面覆盖 320/390/1440 像素。未发生真实支付、退款或外发邮件，未修改会议 22、61、171。

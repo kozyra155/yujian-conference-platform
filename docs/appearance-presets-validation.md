@@ -33,15 +33,15 @@
 
 | 检查 | 结果与范围 |
 | --- | --- |
-| `verify_appearance_api.py`（容器） | 通过：12项catalog、所有预设实际保存、旧数据默认无写入、预览无写入/不切换旧模板、字段与注入拒绝、ACL/CSRF/锁定 |
-| `verify_appearance_rendering.py`（容器） | 通过：12种主题实际SSR、旧模板强制预览、私有缓存、不修改源内容 |
-| `node verify_appearance_public.cjs` | 通过：临时会议循环保存并公开显示12种外观、内容/9个导航保持、两种真实布局位置、320/390/760/1440无溢出，浏览器无pageerror |
-| `node verify_appearance_editor.cjs` | 通过：12张卡片、选择不保存、实际预览不写入、保存重开、旧站升级内容保持、自定义色取消预设、Space/方向键、320/390px、预览链接禁用、403保留草稿 |
-| `node verify_appearance_contrast.cjs` | 通过：真实Chromium解析CSS与像素颜色，2种布局×6种预设以及白/黄自定义色，信息栏标题和日期标签对比度≥4.5 |
-| `verify_complete_site.py`（容器） | 通过：原有完整建站后端、修订号/并发、附件图片归档/权限、同名目录和跨会议/会话回归 |
-| `verify_complete_rendering.py`（容器） | 通过：原导航ACL、显隐过滤、清洗、双语回退、报名投稿状态与旧模板路由 |
-| `node verify_complete_public.cjs` | 通过：原完整站图片上传、发布/撤回、中英、下拉导航及响应式 |
-| `node verify_complete_editor.cjs` | 通过：完整首页编辑的双语、增删排序显隐、上传移除、409/403、保存预览提示及320/390px回归 |
+| `tests/backend/verify_appearance_api.py`（容器） | 通过：12项catalog、所有预设实际保存、旧数据默认无写入、预览无写入/不切换旧模板、字段与注入拒绝、ACL/CSRF/锁定 |
+| `tests/backend/verify_appearance_rendering.py`（容器） | 通过：12种主题实际SSR、旧模板强制预览、私有缓存、不修改源内容 |
+| `node tests/browser/verify_appearance_public.cjs` | 通过：临时会议循环保存并公开显示12种外观、内容/9个导航保持、两种真实布局位置、320/390/760/1440无溢出，浏览器无pageerror |
+| `node tests/browser/verify_appearance_editor.cjs` | 通过：12张卡片、选择不保存、实际预览不写入、保存重开、旧站升级内容保持、自定义色取消预设、Space/方向键、320/390px、预览链接禁用、403保留草稿 |
+| `node tests/browser/verify_appearance_contrast.cjs` | 通过：真实Chromium解析CSS与像素颜色，2种布局×6种预设以及白/黄自定义色，信息栏标题和日期标签对比度≥4.5 |
+| `tests/backend/verify_complete_site.py`（容器） | 通过：原有完整建站后端、修订号/并发、附件图片归档/权限、同名目录和跨会议/会话回归 |
+| `tests/backend/verify_complete_rendering.py`（容器） | 通过：原导航ACL、显隐过滤、清洗、双语回退、报名投稿状态与旧模板路由 |
+| `node tests/browser/verify_complete_public.cjs` | 通过：原完整站图片上传、发布/撤回、中英、下拉导航及响应式 |
+| `node tests/browser/verify_complete_editor.cjs` | 通过：完整首页编辑的双语、增删排序显隐、上传移除、409/403、保存预览提示及320/390px回归 |
 
 新增功能的失败测试已在实现前观察到：API缺少catalog，编辑器无12张外观卡片，渲染器不接受theme_override参数。预览初次测试发现原生菜单自动补齐，已修复为只读。独立复核发现原橙色小字对比度2.59，已改为深色文字、浅色底及强调色边框，回归通过，复核关闭。
 

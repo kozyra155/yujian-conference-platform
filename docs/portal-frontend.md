@@ -16,9 +16,9 @@
 
 - `node --check portal/app.js`：语法检查。
 - `docker compose exec -T indico-nginx nginx -t`：Nginx 配置检查。
-- `node verify_portal.cjs`：首页、关键词与地点搜索、空结果、导航、横幅、公告、登录后创建表单、两场会议链接及浏览器资源检查；320、390、760、1024、1440、1920px 宽度无横向溢出。
-- `verify_demo.py`：两主办方可在演示目录创建会议，无目录管理权限；匿名不能创建；各会议权限隔离。
-- `node verify_browser.cjs`：真实登录、各自会议管理、对方会议 403、匿名访问及栏目保存。
+- `node tests/browser/verify_portal.cjs`：首页、关键词与地点搜索、空结果、导航、横幅、公告、登录后创建表单、两场会议链接及浏览器资源检查；320、390、760、1024、1440、1920px 宽度无横向溢出。
+- `tests/backend/verify_demo.py`：两主办方可在演示目录创建会议，无目录管理权限；匿名不能创建；各会议权限隔离。
+- `node tests/browser/verify_browser.cjs`：真实登录、各自会议管理、对方会议 403、匿名访问及栏目保存。
 
 截图：桌面首页（本机历史验收文件，未上传：`../output/yujian-home-desktop.png`）、手机首页（本机历史验收文件，未上传：`../output/yujian-home-mobile.png`）、创建入口（本机历史验收文件，未上传：`../output/yujian-create-entry.png`）。验证结果保存在 `indico-demo/portal-verification.json`、`verification.json` 和 `browser-verification.json`。
 
@@ -32,6 +32,6 @@
 
 登录页通过 Indico 官方模板扩展机制继承原页面，使用同一 Logo 和背景，并调整中文登录文案、输入框可访问名称及移动布局。原表单、CSRF 字段、登录处理与错误提示保持继承。底部保留较小的上游来源标识。平台原生页头及 favicon 也指向正式 Logo。
 
-`node verify_brand.cjs` 验证用户素材正常加载、登录中文文案、CSRF 字段、真实主办方登录、其他会议管理 403；在 320、390、760、1024、1440px 宽度检查首页及登录页无横向溢出。`node verify_portal.cjs` 复测会议查询和创建表单等已有行为。
+`node tests/browser/verify_brand.cjs` 验证用户素材正常加载、登录中文文案、CSRF 字段、真实主办方登录、其他会议管理 403；在 320、390、760、1024、1440px 宽度检查首页及登录页无横向溢出。`node tests/browser/verify_portal.cjs` 复测会议查询和创建表单等已有行为。
 
 新版截图：首页桌面（本机历史验收文件，未上传：`../output/yujian-brand-desktop.png`）、首页手机（本机历史验收文件，未上传：`../output/yujian-brand-mobile.png`）、登录桌面（本机历史验收文件，未上传：`../output/yujian-login-desktop.png`）、登录手机（本机历史验收文件，未上传：`../output/yujian-login-mobile.png`）。图片是截图素材，高清屏清晰度受原始分辨率限制。

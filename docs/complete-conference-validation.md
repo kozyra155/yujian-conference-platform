@@ -34,16 +34,16 @@
 | 验证 | 覆盖 |
 | --- | --- |
 | `npm run build`（frontend） | Vue/Element Plus生产构建，最终JS约624kB；已有体积提示仍在，不影响构建 |
-| `verify_complete_site.py`（容器） | 创建、旧站无写入默认、栏目保留、字段校验、修订号/并发409、ACL/CSRF/锁定、三种图片、体积/像素限制、跨会议/会话拒绝、同名文件夹回归、发布/撤回图片权限 |
-| `verify_complete_rendering.py`（容器） | 递归三级导航ACL、父节点隐藏、分隔符、显隐过滤、转义/HTML清洗、英文回退、原生入口状态、禁用/外部入口不泄漏原生重复导航、旧模板路由 |
-| `node verify_complete_editor.cjs` | 真实编辑保存/重开、中英文、列表增删排序显隐、图片上传预览移除、409/403保留草稿、重新载入确认、默认三模板、320/390px无溢出与标签不换竖行 |
-| `node verify_complete_public.cjs` | 真实创建/上传/发布、超过1MiB上传穿过Nginx、桌面悬停和键盘/手机下拉、双语内容、显隐过滤、320/390/760/1440px、撤回后图片拒绝/登录跳转 |
-| `node verify_complete_mobile.cjs` | 使用实际CSS，320/390/760px中文/英文登录按钮可读回归 |
-| `verify_complete_business.py`（容器） | 真实报名和摘要投稿HTTP提交、后台记录、撤回阻止参会者；仅内存邮件 |
-| `verify_site_builder.py`（容器） | 原有六页、注册、私密草稿、委托管理、原生导出/附件权限、默认首页、清洗、自定义CSS等回归 |
-| `node verify_workspace_creation.cjs` | 实际组件填写并提交新默认模板、草稿与匿名拒绝 |
-| `node verify_builder_browser.cjs` | 旧体验站4的编辑/预览/发布/公开列表/撤回/语言和响应式 |
-| `node verify_session_language.cjs` | 登录状态、退出、身份不泄漏、语言持久化和表单输入保留 |
+| `tests/backend/verify_complete_site.py`（容器） | 创建、旧站无写入默认、栏目保留、字段校验、修订号/并发409、ACL/CSRF/锁定、三种图片、体积/像素限制、跨会议/会话拒绝、同名文件夹回归、发布/撤回图片权限 |
+| `tests/backend/verify_complete_rendering.py`（容器） | 递归三级导航ACL、父节点隐藏、分隔符、显隐过滤、转义/HTML清洗、英文回退、原生入口状态、禁用/外部入口不泄漏原生重复导航、旧模板路由 |
+| `node tests/browser/verify_complete_editor.cjs` | 真实编辑保存/重开、中英文、列表增删排序显隐、图片上传预览移除、409/403保留草稿、重新载入确认、默认三模板、320/390px无溢出与标签不换竖行 |
+| `node tests/browser/verify_complete_public.cjs` | 真实创建/上传/发布、超过1MiB上传穿过Nginx、桌面悬停和键盘/手机下拉、双语内容、显隐过滤、320/390/760/1440px、撤回后图片拒绝/登录跳转 |
+| `node tests/browser/verify_complete_mobile.cjs` | 使用实际CSS，320/390/760px中文/英文登录按钮可读回归 |
+| `tests/backend/verify_complete_business.py`（容器） | 真实报名和摘要投稿HTTP提交、后台记录、撤回阻止参会者；仅内存邮件 |
+| `tests/backend/verify_site_builder.py`（容器） | 原有六页、注册、私密草稿、委托管理、原生导出/附件权限、默认首页、清洗、自定义CSS等回归 |
+| `node tests/browser/verify_workspace_creation.cjs` | 实际组件填写并提交新默认模板、草稿与匿名拒绝 |
+| `node tests/browser/verify_builder_browser.cjs` | 旧体验站4的编辑/预览/发布/公开列表/撤回/语言和响应式 |
+| `node tests/browser/verify_session_language.cjs` | 登录状态、退出、身份不泄漏、语言持久化和表单输入保留 |
 
 完整体验站61另经真实浏览器验证：9个主导航、4条示例嘉宾、4条单位、实际日程内页可访问、390px无横向溢出。公开站和编辑器浏览器测试均无pageerror。上游摘要表单在构造作者对象时有SQLAlchemy警告，最终摘要及作者提交成功；未修改上游。
 
@@ -59,7 +59,7 @@
 容器测试命令示例（其余Python脚本替换文件名）：
 
 ```powershell
-docker compose -p yujian-indico-v1 cp verify_complete_site.py indico-web:/tmp/verify_complete_site.py
+docker compose -p yujian-indico-v1 cp tests/backend/verify_complete_site.py indico-web:/tmp/verify_complete_site.py
 docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python /tmp/verify_complete_site.py
 ```
 

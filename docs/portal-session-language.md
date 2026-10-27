@@ -20,8 +20,8 @@
 
 ## 验证
 
-- `verify_session_language.cjs`：真实登录后账户名称、匿名隔离、退出、精简会话、不缓存、后台脚本兼容、账户链接、语言持久化、后台语言同步、登录与注册文案、会话服务异常回退；英文 320、390、760、1024、1440px 无横向溢出。
-- `verify_portal.cjs`、`verify_events.cjs`：首页原有查询、创建入口及会议列表筛选、时区、加载失败提示等行为通过。
-- `verify_brand.cjs`、`verify_register.cjs`：品牌素材、真实登录和会议权限、CSRF、验证码保留及注册两步表单通过。
+- `tests/browser/verify_session_language.cjs`：真实登录后账户名称、匿名隔离、退出、精简会话、不缓存、后台脚本兼容、账户链接、语言持久化、后台语言同步、登录与注册文案、会话服务异常回退；英文 320、390、760、1024、1440px 无横向溢出。
+- `tests/browser/verify_portal.cjs`、`tests/browser/verify_events.cjs`：首页原有查询、创建入口及会议列表筛选、时区、加载失败提示等行为通过。
+- `tests/browser/verify_brand.cjs`、`tests/browser/verify_register.cjs`：品牌素材、真实登录和会议权限、CSRF、验证码保留及注册两步表单通过。
 
 截图：英文登录状态首页（本机历史验收文件，未上传：`../output/yujian-home-signed-in-en.png`）。本轮不发送邮件，不创建真实账户；尚未进行其他浏览器内核或自动无障碍审计。

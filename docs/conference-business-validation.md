@@ -31,13 +31,13 @@
 
 | 检查 | 结果 |
 | --- | --- |
-| `verify_business_workspace.py`（容器） | 通过：真实报名/投稿、私有数据隔离、关联作者、评审角色、审批状态、原生完整链接、禁用/撤回/锁定及有限权限 |
-| `verify_business_lifecycle.py`（容器） | 通过：报名待审核 → 审批成功 → CSV包含实际报名；提交评审 → 待审数量扣除 → 录用并生成 contribution；新工作台状态同步 |
-| `verify_native_business.py`（容器） | 通过：18次实际页面检查，表单/初始化/CSRF、唯一提示容器、分项工作人员导航、AJAX片段及非业务页面排除 |
-| `node verify_business_workspace_ui.cjs` | 通过：真实记录、搜索/状态筛选、中英文、错误重试、禁用提示、按钮文字和图标尺寸，320/390/1440px无页面横向溢出 |
-| `node verify_native_business_ui.cjs` | 通过：15个原生页面及配置/投稿弹窗，React字段编辑/报名表加载、原生约束保留；审稿操作按钮对比度≥4.5；1440/390/320px无页面横向溢出，无浏览器脚本错误 |
-| `verify_complete_site.py`、`verify_appearance_api.py`（容器） | 通过：完整建站、图片/附件权限、修订冲突与并发、十二种外观保存/预览及旧模板回归 |
-| `node verify_workspace_ui.cjs`、`node verify_user_frame.cjs`、`node verify_complete_mobile.cjs` | 通过：原目录/工作台、个人资料及旧记录、中英文、输入保持与移动端回归 |
+| `tests/backend/verify_business_workspace.py`（容器） | 通过：真实报名/投稿、私有数据隔离、关联作者、评审角色、审批状态、原生完整链接、禁用/撤回/锁定及有限权限 |
+| `tests/backend/verify_business_lifecycle.py`（容器） | 通过：报名待审核 → 审批成功 → CSV包含实际报名；提交评审 → 待审数量扣除 → 录用并生成 contribution；新工作台状态同步 |
+| `tests/backend/verify_native_business.py`（容器） | 通过：18次实际页面检查，表单/初始化/CSRF、唯一提示容器、分项工作人员导航、AJAX片段及非业务页面排除 |
+| `node tests/browser/verify_business_workspace_ui.cjs` | 通过：真实记录、搜索/状态筛选、中英文、错误重试、禁用提示、按钮文字和图标尺寸，320/390/1440px无页面横向溢出 |
+| `node tests/browser/verify_native_business_ui.cjs` | 通过：15个原生页面及配置/投稿弹窗，React字段编辑/报名表加载、原生约束保留；审稿操作按钮对比度≥4.5；1440/390/320px无页面横向溢出，无浏览器脚本错误 |
+| `tests/backend/verify_complete_site.py`、`tests/backend/verify_appearance_api.py`（容器） | 通过：完整建站、图片/附件权限、修订冲突与并发、十二种外观保存/预览及旧模板回归 |
+| `node tests/browser/verify_workspace_ui.cjs`、`node tests/browser/verify_user_frame.cjs`、`node tests/browser/verify_complete_mobile.cjs` | 通过：原目录/工作台、个人资料及旧记录、中英文、输入保持与移动端回归 |
 
 截图保存在 `../output/business-operations-*.png`、`business-participation-*.png` 及 `native-business-*.png`。已查看工作台、报名记录、原生字段编辑、审稿详情和投稿弹窗的实际截图；修正了按钮文字同色、统计图标压缩、手机弹窗偏移、正文过窄和图片上传按钮挤压。
 
@@ -46,11 +46,11 @@
 容器验证可直接从 PowerShell 运行，例如：
 
 ```powershell
-Get-Content verify_business_workspace.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
-Get-Content verify_business_lifecycle.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
-Get-Content verify_native_business.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
-node verify_business_workspace_ui.cjs
-node verify_native_business_ui.cjs
+Get-Content tests/backend/verify_business_workspace.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
+Get-Content tests/backend/verify_business_lifecycle.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
+Get-Content tests/backend/verify_native_business.py | docker compose -p yujian-indico-v1 exec -T indico-web /opt/indico/.venv/bin/python -
+node tests/browser/verify_business_workspace_ui.cjs
+node tests/browser/verify_native_business_ui.cjs
 ```
 
 测试业务写入在独立 `make_app` 进程中使用 `locmem` 邮件后端，临时账号和会议在退出时标记删除。浏览器业务表单测试不直接提交到真实 SMTP 服务。测试运行时不要重启容器，以免中断清理；本轮中断的一组临时闭环记录已单独核验并清理。

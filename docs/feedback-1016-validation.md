@@ -16,14 +16,14 @@
 ## 已执行验证
 
 - `frontend/apiErrors.test.mjs` 与 `npm run build`。
-- `worker/extension/metadata_selfcheck.py`、`metadata_api_selfcheck.py`：创建兼容、基本信息、原生修改冲突、并发、日程边界、换行与空资料。
-- `verify_feedback_content.py`：持久化与公开展示、旧数据读取不写入、字段限制、图片归属、富文本及独立须知。
-- `verify_feedback_editor.cjs`、`verify_feedback_metadata_ui.cjs`：实际创建编辑、批量上传、表格、模块保存、字段错误、冲突草稿、中英切换及移动布局。
-- `verify_interests.py`、`verify_interests_ui.cjs`：三类实际提交、完整导出、访问权限、关闭及重新启用、邮件和财务隔离。
-- `verify_conference_accounts.py`、`verify_conference_accounts_feedback.py`、`verify_conference_accounts_feedback_ui.cjs`：签名邮件、CAPTCHA、CSRF、全新浏览器、过期及伪造链接、等待状态和手机提示。
-- `verify_complete_site.py`、`verify_complete_editor.cjs`、`verify_complete_public.cjs`、`verify_complete_rendering.py`、`verify_appearance_rendering.py`：原功能及外观回归。
-- `verify_payments.py`：内存模拟的报名、到账、退款、开票申请及支付签名回调，无真实收付款。
-- `verify_service_recovery.py`：六个服务和主要页面可访问。
+- `tests/backend/metadata_selfcheck.py`、`tests/backend/metadata_api_selfcheck.py`：创建兼容、基本信息、原生修改冲突、并发、日程边界、换行与空资料。
+- `tests/backend/verify_feedback_content.py`：持久化与公开展示、旧数据读取不写入、字段限制、图片归属、富文本及独立须知。
+- `tests/browser/verify_feedback_editor.cjs`、`tests/browser/verify_feedback_metadata_ui.cjs`：实际创建编辑、批量上传、表格、模块保存、字段错误、冲突草稿、中英切换及移动布局。
+- `tests/backend/verify_interests.py`、`tests/browser/verify_interests_ui.cjs`：三类实际提交、完整导出、访问权限、关闭及重新启用、邮件和财务隔离。
+- `tests/backend/verify_conference_accounts.py`、`tests/backend/verify_conference_accounts_feedback.py`、`tests/browser/verify_conference_accounts_feedback_ui.cjs`：签名邮件、CAPTCHA、CSRF、全新浏览器、过期及伪造链接、等待状态和手机提示。
+- `tests/backend/verify_complete_site.py`、`tests/browser/verify_complete_editor.cjs`、`tests/browser/verify_complete_public.cjs`、`tests/backend/verify_complete_rendering.py`、`tests/backend/verify_appearance_rendering.py`：原功能及外观回归。
+- `tests/backend/verify_payments.py`：内存模拟的报名、到账、退款、开票申请及支付签名回调，无真实收付款。
+- `tests/backend/verify_service_recovery.py`：六个服务和主要页面可访问。
 
 浏览器截图及结果位于上级 `output/feedback-1016/`，另有 `output/feedback-*-*.png` 与 `output/interest-*.png`。验收均使用独立临时会议和账号，完成后清理其可见记录；未修改会议22、61、171。
 

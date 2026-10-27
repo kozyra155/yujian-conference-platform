@@ -43,7 +43,7 @@
 | 响应式 | 建站页、发布工作台、生成网站首页及栏目页在 320、390、760、1440px 无横向溢出 |
 | 原有页面回归 | 首页导航搜索、历史活动筛选、会话及中英文、品牌登录、注册表单通过；浏览器未记录页面脚本异常 |
 
-后端测试为 `indico-demo/verify_site_builder.py`，完成后将临时账号、会议标记删除；浏览器测试 `verify_builder_browser.cjs` 复用唯一体验会议并保留公开供验收。
+后端测试为 `tests/backend/verify_site_builder.py`，完成后将临时账号、会议标记删除；浏览器测试 `tests/browser/verify_builder_browser.cjs` 复用唯一体验会议并保留公开供验收。
 
 结果文件：浏览器结果（本机历史验收文件，未上传：`../output/site-builder-browser.json`）、后端结果（本机历史验收文件，未上传：`../output/site-builder-backend.json`）。截图：创建页（本机历史验收文件，未上传：`../output/yujian-builder-create-desktop.png`）、发布工作台（本机历史验收文件，未上传：`../output/yujian-builder-published-desktop.png`）、英文手机工作台（本机历史验收文件，未上传：`../output/yujian-builder-published-mobile-en.png`）、手机会议首页（本机历史验收文件，未上传：`../output/yujian-site-mobile.png`）、手机栏目页（本机历史验收文件，未上传：`../output/yujian-site-page-mobile.png`）。
 

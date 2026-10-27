@@ -13,8 +13,8 @@ Windows C盘剩余空间为0。Docker Desktop后端在09:21:07 UTC记录 `There 
 
 ## 验证
 
-`D:/python/python.exe verify_service_recovery.py` 检查Compose与实际容器重启策略、6个服务运行状态、本机/内网首页、登录页和会议61首页，均通过。验证HTTP请求绕过系统代理，以免将代理报错误认为应用响应。
+`D:/python/python.exe tests/backend/verify_service_recovery.py` 检查Compose与实际容器重启策略、6个服务运行状态、本机/内网首页、登录页和会议61首页，均通过。验证HTTP请求绕过系统代理，以免将代理报错误认为应用响应。
 
-`node verify_lan_access.cjs` 验证实际登录、我的参会、主办方工作台、创建入口及个人资料。数据库原生应用读取会议22/61成功，发布与公司收款状态保持原样。未执行全面数据完整性检查、真实扣款或外部邮件测试。
+`node tests/browser/verify_lan_access.cjs` 验证实际登录、我的参会、主办方工作台、创建入口及个人资料。数据库原生应用读取会议22/61成功，发布与公司收款状态保持原样。未执行全面数据完整性检查、真实扣款或外部邮件测试。
 
 恢复后C盘剩余约3.6GiB，仍然偏少；需继续整理系统盘或规划Docker数据迁移。此次不迁移Docker数据库虚拟磁盘，不删除或清空持久卷。

@@ -24,12 +24,12 @@
 
 | 验证 | 结果 |
 | --- | --- |
-| `verify_conference_accounts.py`（容器） | 通过：真实验证码会话、内存验证邮件、全新浏览器验证及创建账号、邮箱登录、自动返回、实际报名和投稿 |
+| `tests/backend/verify_conference_accounts.py`（容器） | 通过：真实验证码会话、内存验证邮件、全新浏览器验证及创建账号、邮箱登录、自动返回、实际报名和投稿 |
 | 同一接口检查 | 通过：无邮箱验证不能创建账号，无CSRF拒绝、错误CAPTCHA拒绝、篡改/过期令牌拒绝、改变已验证邮箱被原生422拒绝、非法返回及私密上下文保护 |
-| `node verify_conference_accounts_ui.cjs` | 通过：完整/旧模板和原生页面访客入口、320/390/1440px、验证码布局、新浏览器账户表单、双语切换保留输入、真实登录返回及隐藏注册入口，无浏览器脚本错误 |
-| `verify_complete_rendering.py`（容器） | 通过：导航ACL、过滤、转义、双语回退、关闭报名/投稿、外部业务链接及缓存行为；匿名原生业务链接的新预期是先登录，原目标保留 |
-| `node verify_lan_access.cjs` | 通过：实际登录、个人资料表单、参会/主办方工作台和内网统一来源 |
-| `verify_smtp_runtime.py`（Web、Celery容器） | 通过：QQ SMTP 465 SSL连接认证、发送者配置、后台队列启用；没有发送真实测试邮件 |
+| `node tests/browser/verify_conference_accounts_ui.cjs` | 通过：完整/旧模板和原生页面访客入口、320/390/1440px、验证码布局、新浏览器账户表单、双语切换保留输入、真实登录返回及隐藏注册入口，无浏览器脚本错误 |
+| `tests/backend/verify_complete_rendering.py`（容器） | 通过：导航ACL、过滤、转义、双语回退、关闭报名/投稿、外部业务链接及缓存行为；匿名原生业务链接的新预期是先登录，原目标保留 |
+| `node tests/browser/verify_lan_access.cjs` | 通过：实际登录、个人资料表单、参会/主办方工作台和内网统一来源 |
+| `tests/backend/verify_smtp_runtime.py`（Web、Celery容器） | 通过：QQ SMTP 465 SSL连接认证、发送者配置、后台队列启用；没有发送真实测试邮件 |
 
 注册完整流程的实际写入仅在独立 `make_app` 进程的locmem邮件后端测试。浏览器阻止注册POST，使用内存邮件生成的链接展示第二步，并通过临时账号验证登录。临时账号和会议退出时清理。截图在 `../output/conference-login-*.png`、`conference-register-*.png` 和 `conference-account-profile-*.png`，已检查实际图片。
 

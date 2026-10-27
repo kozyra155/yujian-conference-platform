@@ -8,6 +8,6 @@
 
 源码：`display.py`供给真实入口状态；`templates/conference-entry.html`与`portal/conference-entry.css`共用组件；`portal.js`复用会话刷新切换访客/登录状态。复用原生账号、报名、付款业务，无额外数据库。
 
-验证：`verify_complete_rendering.py`检查禁用状态、外部链接保留、原生报名返回地址、安全URL和既有ACL渲染；扩展`verify_conference_accounts_ui.cjs`验证完整/侧栏/旧版外观、栏目页、真实登录返回报名、邮箱验证页面、新浏览器注册上下文、中英切换、已登录状态、关闭报名及320/390/1440像素布局。浏览器错误为空，临时数据在finally中清理，测试邮件仅内存。截图位于`../output/conference-entry-*.png`。
+验证：`tests/backend/verify_complete_rendering.py`检查禁用状态、外部链接保留、原生报名返回地址、安全URL和既有ACL渲染；扩展`tests/browser/verify_conference_accounts_ui.cjs`验证完整/侧栏/旧版外观、栏目页、真实登录返回报名、邮箱验证页面、新浏览器注册上下文、中英切换、已登录状态、关闭报名及320/390/1440像素布局。浏览器错误为空，临时数据在finally中清理，测试邮件仅内存。截图位于`../output/conference-entry-*.png`。
 
 参考站自动读取未成功；视觉按用户提供的截图制作。真实外部邮箱收件与支付商户验证不属于这次入口改动。

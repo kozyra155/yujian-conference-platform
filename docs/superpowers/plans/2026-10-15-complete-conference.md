@@ -8,7 +8,7 @@
 
 **Tech Stack:** Indico 3.3.13 / Flask / PostgreSQL, Vue 3 / Element Plus / Vite, Playwright.
 
-- [x] Backend: added verify_complete_site.py first; the native catchall returned405 for the missing content endpoint (rather than404). Implemented site_content.py, blueprint endpoints, template initialization and secure upload; real Flask integration assertions pass. Own plugin __init__.py, blueprint.py, new site_content.py and backend test.
+- [x] Backend: added tests/backend/verify_complete_site.py first; the native catchall returned405 for the missing content endpoint (rather than404). Implemented site_content.py, blueprint endpoints, template initialization and secure upload; real Flask integration assertions pass. Own plugin __init__.py, blueprint.py, new site_content.py and backend test.
 - [x] Public presentation: regression rendering assertions observed failing before implementation; complete-conference.html/CSS/JS and conditional display.py add recursive ACL navigation, bilingual fields and responsive reference layout. Dedicated renderer and live browser checks pass.
 - [x] Editor: browser smoke first failed at absent editor tab; SiteContentEditor.vue and App.vue now default to academic-full while preserving two older options. Real upload/removal, list management, save conflict/errors and unsaved drafts verified in browser.
 - [x] Integration: frontend build passed; web/celery/beat restarted, Nginx upload limit validated and reloaded. Complete-site backend/browser tests and relevant legacy regressions pass. Disposable records cleaned, conference22 untouched. Desktop/mobile screenshots inspected; permanent clearly labelled demonstration is event61.

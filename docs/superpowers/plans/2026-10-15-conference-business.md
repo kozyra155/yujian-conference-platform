@@ -6,8 +6,8 @@
 
 **Architecture:** Native Indico records and operations, private read-only aggregate APIs, Vue/Element Plus summaries, native-form Jinja shell and scoped CSS. No new business database or payment integrations.
 
-- [x] Backend worker: business.py, blueprint.py, verify_business_workspace.py. Write missing API red first; actual scoped queries/ownership/canonical links/disabled and withdrawn checks; fixture integration with locmem mail.
-- [x] Frontend worker: BusinessWorkspace.vue and optional business-workspace.css, verify_business_workspace_ui.cjs. Use exact API contract; missing route/UI red first. Root owns App.vue integration/mode/routes/sidebar. Component receives mode,eventId,language.
+- [x] Backend worker: business.py, blueprint.py, tests/backend/verify_business_workspace.py. Write missing API red first; actual scoped queries/ownership/canonical links/disabled and withdrawn checks; fixture integration with locmem mail.
+- [x] Frontend worker: BusinessWorkspace.vue and optional business-workspace.css, tests/browser/verify_business_workspace_ui.cjs. Use exact API contract; missing route/UI red first. Root owns App.vue integration/mode/routes/sidebar. Component receives mode,eventId,language.
 - [x] Native-shell worker: plugin __init__.py asset injection, customization/templates/core/events management/display overrides, native-business.css/js, dedicated native test. Preserve native bundle/DOM/confirmation logic; include AJAX fragments unchanged; no source upstream edits. Worker tests selectors before changing pages.
 - [x] Root: integrate mode routes template shell through blueprint worker and App.vue, global links/participant sidebar. Build and restart services once coherent. Verify APIs plus actual native registration/submission/approval/export/review with temporary records, and responsive component/native forms screenshots.
 - [x] Independent reviewer checks ACL, personal-data isolation, state accuracy, native form behavior and regressions. Fix findings, rerun relevant tests, document completed scope/boundaries and fixture cleanup.

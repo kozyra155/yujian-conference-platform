@@ -8,6 +8,6 @@
 - 保留名称/地点搜索、中英文界面、时区选择，支持服务端分页、无结果、请求失败重试及快速搜索乱序保护。
 - 首页现有“最新会议”入口保留；`build_events.py` 同步更新，重建不会恢复旧内容。
 
-已运行 `node verify_events.cjs`：核对真实公开会议、详情链接、旧数据404、双列表移除、三种状态、搜索、分页、空结果、失败重试、中英及时区切换、320/390/760/1024/1440宽度和标题HTML注入保护。浏览器错误为零；截图 `output/yujian-events-desktop.png` 与 `output/yujian-events-mobile.png` 已目视检查。
+已运行 `node tests/browser/verify_events.cjs`：核对真实公开会议、详情链接、旧数据404、双列表移除、三种状态、搜索、分页、空结果、失败重试、中英及时区切换、320/390/760/1024/1440宽度和标题HTML注入保护。浏览器错误为零；截图 `output/yujian-events-desktop.png` 与 `output/yujian-events-mobile.png` 已目视检查。
 
 未修改登录、报名或财务流程，本次未运行这些流程的完整回归。

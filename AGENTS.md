@@ -1,6 +1,6 @@
 # 项目协作约定
 
-适用范围：本目录及子目录。更新日期：2026-10-26。先阅读 README.md 与对应 docs 验证记录，区分当前实现、历史验收和未验证项。
+适用范围：本目录及子目录。更新日期：2026-10-27。先阅读 README.md、tests/README.md 与对应 docs 验证记录，区分当前实现、历史验收和未验证项。
 
 ## 项目与环境
 
@@ -41,9 +41,11 @@
 ## 验证与交付
 
 - 按改动范围验证，先阅读脚本再运行。部分早期 `verify_*` 会编辑既有演示记录或保留示例，不能盲目批量执行。
-- 后端支付/状态变更：`verify_review_regressions.py`、`verify_payments.py` 复制到容器运行；UI：`node verify_payments_ui.cjs`。命令见 README。
-- 基本信息与首页：对应 `verify_feedback_*`；检索：`verify_conference_search.py`；倒计时：`verify_countdown.py` / `verify_countdown_ui.cjs`。优先选择能覆盖触发条件的检查。
-- 前端：`npm run build`，`node --test frontend/apiErrors.test.mjs`（后者从项目根运行）。部署可用性：`D:/python/python.exe verify_service_recovery.py`，它不打印运行密钥。
+- 验收脚本放在 `tests/backend/`（Python）和 `tests/browser/`（Playwright/诊断），不要继续添加到根目录；从项目根运行命令。浏览器的 Docker 工作目录、私有文件和截图路径必须以项目根定位，不能误用测试目录。
+- 本机配置测试：`D:/python/python.exe -m unittest discover -s tests/backend -p test_smtp_config.py`。前端局部单元测试保留在 `frontend/`。
+- 后端支付/状态变更：`tests/backend/verify_review_regressions.py`、`tests/backend/verify_payments.py` 复制到容器运行；UI：`node tests/browser/verify_payments_ui.cjs`。命令见 README。
+- 基本信息与首页：对应 `verify_feedback_*`；检索：`tests/backend/verify_conference_search.py`；倒计时：`tests/backend/verify_countdown.py` / `tests/browser/verify_countdown_ui.cjs`。优先选择能覆盖触发条件的检查。
+- 前端：`npm run build`，`node --test frontend/apiErrors.test.mjs`（后者从项目根运行）。部署可用性：`D:/python/python.exe tests/backend/verify_service_recovery.py`，它不打印运行密钥。
 - 报告说明本次实际运行结果，不把历史通过当成本轮通过；真实邮箱送达、原手机微信内核和真实商户支付仍需单独验收。
 - 功能/启动/数据路径变化时同步 README 与相应 docs；协作规则变化时更新本文件。只改文档时检查路径、链接和敏感数据即可，不重启服务或执行会写库的业务测试。
 

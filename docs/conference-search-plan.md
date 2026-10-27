@@ -11,7 +11,7 @@
 
 涉及：`conference_search.py` 与公共列表接口；`events-content.html`/`events.html`、`events.js`、`events.css`。沿用现有组件和卡片样式，不新增依赖。
 
-验收：`verify_conference_search.py`（隔离临时数据）、`verify_event_filters.cjs`（实际下拉框与组合请求）、`verify_events.cjs`（原有卡片功能）。
+验收：`tests/backend/verify_conference_search.py`（隔离临时数据）、`tests/browser/verify_event_filters.cjs`（实际下拉框与组合请求）、`tests/browser/verify_events.cjs`（原有卡片功能）。
 
 上述三个检查均已通过，服务已重启并通过六服务访问检查。已目视检查桌面和手机截图：上级 `output/events-filters-desktop.png`、`output/events-filters-mobile.png`。旧场地首尾空格、超过200字场地及原生关联场地均有选项回查测试；会议资料本身不作截断或修改。
 

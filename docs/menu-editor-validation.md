@@ -16,14 +16,14 @@
 | 检查 | 结果 |
 |---|---|
 | `npm run build` | 成功，组件本地打包，无新增依赖 |
-| `verify_menu_editor.cjs` | 会议 22 只读查看，新版工具栏；320/390/760/1440px 无横向溢出 |
-| `verify_user_frame.cjs` | 资料与参会记录新外壳；同四种宽度通过；输入后切换英文保持原值 |
-| `verify_native_ui.cjs` | 三类页面统一外壳、手机个人中心入口及布局通过 |
-| `verify_menu_editor_flow.cjs` | 临时普通账号实际保存资料（原生 PATCH 返回 204），创建临时会议，搜索/分类、新页面、富文本读回和标题修改、显示切换、默认首页、鼠标拖拽与刷新后顺序、删除后列表刷新均通过 |
+| `tests/browser/verify_menu_editor.cjs` | 会议 22 只读查看，新版工具栏；320/390/760/1440px 无横向溢出 |
+| `tests/browser/verify_user_frame.cjs` | 资料与参会记录新外壳；同四种宽度通过；输入后切换英文保持原值 |
+| `tests/browser/verify_native_ui.cjs` | 三类页面统一外壳、手机个人中心入口及布局通过 |
+| `tests/browser/verify_menu_editor_flow.cjs` | 临时普通账号实际保存资料（原生 PATCH 返回 204），创建临时会议，搜索/分类、新页面、富文本读回和标题修改、显示切换、默认首页、鼠标拖拽与刷新后顺序、删除后列表刷新均通过 |
 | 同上 | 390px 富文本对话框无横向溢出，中英、关闭菜单后的重新启用、锁定只读、匿名及跨账号拒绝通过；无浏览器 JS 错误 |
-| `verify_builder_browser.cjs` | 已有建站、编辑、发布/撤回及门户列表闭环回归通过，体验会议 4 最终保持发布 |
-| `verify_session_language.cjs` | 会话、语言保持、退出及原生兼容回归通过 |
-| `verify_site_builder.py` | 注册、创建、草稿及附件/导出保护、页面 ACL、委托管理、HTML 清洗等后端回归通过 |
+| `tests/browser/verify_builder_browser.cjs` | 已有建站、编辑、发布/撤回及门户列表闭环回归通过，体验会议 4 最终保持发布 |
+| `tests/browser/verify_session_language.cjs` | 会话、语言保持、退出及原生兼容回归通过 |
+| `tests/backend/verify_site_builder.py` | 注册、创建、草稿及附件/导出保护、页面 ACL、委托管理、HTML 清洗等后端回归通过 |
 
 会议 22 未进行写入测试。临时账号和它创建的会议在 finally 中校验身份后标记删除。两项独立只读审查未发现实质权限或排序兼容性问题。
 
