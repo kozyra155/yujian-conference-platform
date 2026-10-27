@@ -43,6 +43,7 @@ atexit.register(cleanup_failed_setup)
   for(const role of ['owner','attendee','reviewer']){
    const context=await browser.newContext({locale:'zh-CN',viewport:{width:1440,height:1000}});
    context.setDefaultTimeout(15000);await context.addCookies(fixture.cookies[role]);
+   assert.equal((await context.cookies(base)).length,fixture.cookies[role].length,'Fixture cookies must match the site host');
    await context.addInitScript(()=>localStorage.setItem('meet-language','zh'));
    // The two native POST queries only resolve/list existing objects; all mutations stay in locmem Python.
    await context.route('**/*',route=>{

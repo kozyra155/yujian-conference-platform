@@ -4,10 +4,12 @@ import os
 import re
 import uuid
 from datetime import timedelta
+from urllib.parse import urlsplit
 
 os.environ['PYTEST_CURRENT_TEST'] = 'verify_native_business'
 
 from indico.web.flask.app import make_app
+from indico.core.config import config
 from indico.core.db import db
 from indico.modules.auth import Identity
 from indico.modules.users import User
@@ -156,10 +158,11 @@ try:
         with app.test_request_context(base_url='http://192.168.2.36:12880'):
             YujianSitePlugin.event_settings.set(Event.get(event_id), 'managed', True)
             db.session.commit()
+            cookie_domain = urlsplit(config.BASE_URL).hostname
         result['preview'] = {'event_id': event_id, 'form_id': form_id, 'registration_id': registration_id,
                              'abstract_id': abstract_id, 'track_id': track_id, 'user_ids': user_ids,
                              'cookies': {role: [{'name': cookie.key, 'value': cookie.value,
-                                                  'domain': 'localhost', 'path': cookie.path,
+                                                  'domain': cookie_domain, 'path': cookie.path,
                                                   'httpOnly': cookie.http_only, 'sameSite': 'Lax'}
                                                  for cookie in client._cookies.values()]
                                          for role, client in [('owner', owner), ('attendee', attendee),
